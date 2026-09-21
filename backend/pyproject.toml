@@ -1,0 +1,45 @@
+[project]
+name = "agri-ai-backend"
+version = "0.1.0"
+description = "Agri AI backend — FastAPI, PyTorch disease detection, RAG farming assistant"
+requires-python = ">=3.11"
+
+# ---------------------------------------------------------------------------
+# Linting (ruff) — lint + import sorting
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = [".venv", "__pycache__", "app/rag/index", "app/models/weights"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+]
+ignore = ["E501"]  # line length handled by the formatter
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]
+
+# ---------------------------------------------------------------------------
+# Formatting (black)
+# ---------------------------------------------------------------------------
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+# ---------------------------------------------------------------------------
+# Tests
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "-q"

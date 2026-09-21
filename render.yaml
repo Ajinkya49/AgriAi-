@@ -1,0 +1,77 @@
+# Render blueprint for the Agri AI backend.
+#
+# Deploy: Render Dashboard → New → Blueprint → point at this repository.
+# Render reads this file and provisions the service; the secret values are then
+# filled in from the dashboard (they are marked `sync: false` so they are never
+# stored in git).
+#
+# The Dockerfile is at backend/Dockerfile but the build context is the repository
+# root, because the image needs both `backend/` and the ML artefacts under it.
+
+services:
+  - type: web
+    name: agri-ai-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    plan: starter
+    region: singapore
+    healthCheckPath: /api/health
+    # The model and FAISS index are baked into the image, so a cold start is
+    # ~8.5 s. `autoDeploy` is on so a push to main rebuilds.
+    autoDeploy: true
+    envVars:
+      # ---- Supabase ----
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_STORAGE_BUCKET
+        value: agri-ai
+
+      # ---- Conversational LLM ----
+      # OpenRouter is the primary chat provider; Gemini is the fallback. Both are
+      # conversation-only — image diagnosis is PyTorch and never touches an LLM.
+      #
+      # ⚠️ Without OPENROUTER_API_KEY the assistant still works, but silently on
+      # Gemini alone — i.e. on the 20-requests/day free tier, which cannot serve a
+      # village. Set it.
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENROUTER_MODEL
+        value: deepseek/deepseek-v4-flash-0731:free
+      - key: OPENROUTER_FALLBACK_MODELS
+        value: nvidia/nemotron-3-ultra-550b-a55b:free,google/gemma-4-31b-it:free
+
+      # ---- Gemini ----
+      # Still required for EMBEDDINGS: the FAISS index was built with
+      # gemini-embedding-001 and load_index() refuses a mismatched model, so the
+      # index cannot be rebuilt without this key.
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-3.6-flash
+      - key: GEMINI_EMBEDDING_MODEL
+        value: gemini-embedding-001
+      - key: GEMINI_FALLBACK_MODELS
+        value: gemini-3.5-flash,gemini-flash-latest,gemini-3-flash-preview
+
+      # ---- CORS ----
+      # ⚠️ MUST include the deployed Vercel origin, or every browser call from the
+      # production frontend fails the preflight. Comma-separated.
+      - key: CORS_ORIGINS
+        sync: false
+
+      # ---- Runtime ----
+      - key: ENVIRONMENT
+        value: production
+      - key: MODEL_PATH
+        value: app/models/weights/efficientnet_b0_agri.pt
+      - key: FAISS_INDEX_PATH
+        value: app/rag/index/knowledge_base.faiss
+      - key: RAG_TOP_K
+        value: "5"

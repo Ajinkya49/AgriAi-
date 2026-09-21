@@ -1,0 +1,464 @@
+{
+ "format_version": 1,
+ "embedding_model": "gemini-embedding-001",
+ "dimension": 3072,
+ "built_at": "2026-09-17T13:24:34+00:00",
+ "chunk_size": 900,
+ "chunk_overlap": 150,
+ "source_files": [
+  "integrated_pest_management",
+  "organic_preparations",
+  "pepper_diseases",
+  "potato_diseases",
+  "seed_and_nursery",
+  "soil_health_and_nutrition",
+  "tomato_diseases",
+  "water_and_irrigation"
+ ],
+ "chunks": [
+  {
+   "text": "Source: ICAR National Research Institute for Integrated Pest Management (NRIiPM);\nCEEW sustainable agriculture guidance. Compiled for Agri AI's farming assistant.\n\nIntegrated Pest Management (IPM) is not a product or a spray schedule. It is a\nway of deciding *whether* to act, and it puts the cheapest and safest options\nfirst. The order matters.",
+   "source": "integrated_pest_management",
+   "heading": "",
+   "index": 0
+  },
+  {
+   "text": "The core idea\n\nTreat the field as a system rather than a patient. Most pest and disease\noutbreaks are the result of something that made the crop vulnerable — the wrong\nvariety, poor airflow, water on the leaves, unbalanced nutrition, or a field that\nhas grown the same crop for years. Fixing that is usually cheaper and more\nlasting than spraying.",
+   "source": "integrated_pest_management",
+   "heading": "The core idea",
+   "index": 1
+  },
+  {
+   "text": "1. Cultural control — farm operations that prevent the problem\n\nThese are ordinary farm operations, not purchases, and they are the foundation.\n\n- **Crop rotation.** Growing a different crop family in the next season breaks\n  the life cycle of pathogens and pests that survive in the soil or in crop\n  debris. Two seasons away from a host crop is far more effective than any\n  spray.\n- **Sanitation.** Remove and destroy infected plant material. Do not leave it at\n  the field edge and do not compost diseased material for use on the same crop.\n- **Correct spacing and pruning.** Air movement dries the leaf surface.",
+   "source": "integrated_pest_management",
+   "heading": "1. Cultural control — farm operations that prevent the problem",
+   "index": 2
+  },
+  {
+   "text": "1. Cultural control — farm operations that prevent the problem\n\nthe field edge and do not compost diseased material for use on the same crop.\n- **Correct spacing and pruning.** Air movement dries the leaf surface. Most\n  foliar diseases need wet leaves to infect.\n- **Water management.** Drip or furrow irrigation at the base, rather than\n  overhead sprinklers, keeps the canopy dry and removes the main route by which\n  soil-borne pathogens reach the leaves.\n- **Variety choice.** A resistant variety is the most reliable single control you\n  have, and it costs nothing extra at sowing time.\n- **Timely sowing.** Sowing at the recommended time avoids the pest peak that a\n  late or early crop runs into.",
+   "source": "integrated_pest_management",
+   "heading": "1. Cultural control — farm operations that prevent the problem",
+   "index": 3
+  },
+  {
+   "text": "2. Mechanical and physical control\n\n- Hand-picking and destroying egg masses, larvae and infected leaves.\n- Traps — light traps, yellow and blue sticky traps, pheromone traps for\n  monitoring and for mass trapping.\n- Barriers such as nets for nurseries, and mulches that block soil splash.\n- Hand weeding, since weeds harbour both pests and pathogens.",
+   "source": "integrated_pest_management",
+   "heading": "2. Mechanical and physical control",
+   "index": 4
+  },
+  {
+   "text": "3. Biological control\n\nLiving organisms that suppress pests and disease. These work preventively and\nneed to be applied before the problem is severe.\n\n- ***Trichoderma viride* / *T. harzianum*** — soil fungi that colonise roots,\n  compete with pathogens and break down their cell walls. Used as seed treatment,\n  nursery mix or soil drench.\n- ***Pseudomonas fluorescens*** — a root bacterium that suppresses several foliar\n  and soil-borne pathogens and is widely used in Indian vegetable production.\n- ***Bacillus subtilis*** and other *Bacillus* species — used against both\n  fungal and bacterial problems.\n- **Conserving natural enemies.** Ladybird beetles, spiders, dragonflies and\n  parasitic wasps reduce pest populations. Broad-spectrum chemical sprays kill\n  them along with the pest, which is why they often make the next outbreak worse.",
+   "source": "integrated_pest_management",
+   "heading": "3. Biological control",
+   "index": 5
+  },
+  {
+   "text": "4. Chemical control — the last resort, used precisely\n\nWhen the first three levels have not held, chemical control has a place, but it\nmust be targeted.\n\n- **Identify the pest or disease correctly first.** Spraying for the wrong\n  organism wastes money and harms natural enemies.\n- **Use the recommended product at the recommended dose.** Higher doses do not\n  work better and they build resistance faster.\n- **Rotate chemical groups** so resistance does not develop.\n- **Respect the pre-harvest interval** — the waiting period before harvest. This\n  is a food safety requirement, not a suggestion.\n- **Spray in the evening or early morning** to protect pollinators.",
+   "source": "integrated_pest_management",
+   "heading": "4. Chemical control — the last resort, used precisely",
+   "index": 6
+  },
+  {
+   "text": "Scouting: the habit that makes IPM work\n\nWalk the field at least twice a week, on a fixed route. Check the oldest, lowest\nleaves first, and look at the underside as well as the top. Record what you see.\nThe point is to catch a problem while it is still small enough that a cultural\nmeasure or a biocontrol spray will hold it.\n\nAn economic threshold is the level of infestation at which the loss from the pest\nfinally exceeds the cost of treating it. Below that level, spraying loses money.\nThis is why \"spray something just in case\" is a bad habit.",
+   "source": "integrated_pest_management",
+   "heading": "Scouting: the habit that makes IPM work",
+   "index": 7
+  },
+  {
+   "text": "Why this matters beyond yield\n\nOveruse of chemical pesticides in vegetables has led to resistance in several\nmajor pests, residues above permissible limits in produce, and harm to farm\nworkers. Integrating cultural, mechanical and biological measures — with\nchemicals used precisely and rarely — produces comparable yields with far lower\ninput cost and far lower risk.",
+   "source": "integrated_pest_management",
+   "heading": "Why this matters beyond yield",
+   "index": 8
+  },
+  {
+   "text": "A note on confidence\n\nAdvice about pest management is only as good as the identification it rests on.\nWhere the diagnosis matters, confirm with your local KVK or extension officer.",
+   "source": "integrated_pest_management",
+   "heading": "A note on confidence",
+   "index": 9
+  },
+  {
+   "text": "Source: TNAU Agritech Portal (Tamil Nadu Agricultural University), Organic Farming\nsection. Compiled for Agri AI's farming assistant.\n\nThese are long-standing preparations used in Indian organic farming. They are\nrecorded here because farmers ask about them and because they are documented by an\nagricultural university — not because they are a substitute for identifying and\ntreating a specific disease.\n\n**Important:** these are traditional practices. They support plant vigour and soil\nbiological activity. They are not a guaranteed treatment for an established\ndisease, and they should not be relied on alone when a crop is seriously affected.",
+   "source": "organic_preparations",
+   "heading": "",
+   "index": 10
+  },
+  {
+   "text": "Panchagavya\n\nPanchagavya is a fermented preparation of five cow-derived products plus a few\nadditions. TNAU describes it as promoting growth and supporting the plant's own\ndefences.\n\n**Ingredients and method (TNAU).**\n\n1. Mix **7 kg cow dung** with **1 kg cow ghee** thoroughly, morning and evening,\n   and keep for **3 days**.\n2. After 3 days, add **10 litres cow urine** and **10 litres water**, and keep\n   for **15 days**, stirring morning and evening.\n3. Then add **3 litres cow milk**, **2 litres cow curd**, **3 litres tender\n   coconut water**, **3 kg jaggery** and **12 well-ripened poovan bananas**.\n4. The stock solution is ready **30 days** after starting.\n\nKeep the container open but in the shade, stir twice daily, and cover the mouth\nwith wire mesh or a mosquito net to keep flies out and prevent maggots. Use a\nwooden stick for stirring. Do not mix buffalo products.\n\n**Application (TNAU).**",
+   "source": "organic_preparations",
+   "heading": "Panchagavya",
+   "index": 11
+  },
+  {
+   "text": "Panchagavya\n\nmesh or a mosquito net to keep flies out and prevent maggots. Use a\nwooden stick for stirring. Do not mix buffalo products.\n\n**Application (TNAU).**\n\n- **Foliar spray:** 3 litres of stock solution per 100 litres of water (3%). This\n  was found more effective than higher or lower concentrations.\n- **With irrigation:** 50 litres per hectare through drip or flow irrigation.\n- **Seed or seedling treatment:** soak seed or dip seedlings in a 3% solution for\n  20 minutes. For turmeric, ginger and sugarcane setts, soak for 30 minutes.\n- **Timing for tomato (TNAU):** nursery stage and 40 days after transplanting,\n  with seed treatment at 1% for 12 hours.\n- **General periodicity:** once in 15 days before flowering; once in 10 days\n  during flowering and pod setting.\n\nFilter the solution before spraying through a power sprayer, and use a nozzle\nwith a wider pore for hand-operated sprayers.",
+   "source": "organic_preparations",
+   "heading": "Panchagavya",
+   "index": 12
+  },
+  {
+   "text": "Jeevamrut (Jivamirtham)\n\nA fermented liquid used to build soil microbial activity.\n\n**Ingredients (TNAU).** 10 kg cow dung, 10 litres cow urine, 2 kg old jaggery,\n2 kg flour of gram / pigeon pea / moong / cowpea / urad dal, 1 kg live soil, and\n200 litres of water.\n\n**Method.** Take 100 litres of water in a barrel. Add the cow dung and cow urine\nand mix well with a wooden stick. Add the jaggery and the flour and mix again.\nKeep undisturbed for **2 to 7 days** to ferment, stirring regularly **three times\na day**.\n\n**Use.** Apply around the root zone with irrigation. Farmers use it to support\nsoil biological activity and plant vigour.",
+   "source": "organic_preparations",
+   "heading": "Jeevamrut (Jivamirtham)",
+   "index": 13
+  },
+  {
+   "text": "Amirthakaraisal\n\n**Ingredients (TNAU).** 10 kg fresh cow dung, 10 litres cow urine, 1 kg country\njaggery, 100 litres water.\n\n**Method.** Combine all ingredients in a cement tank and mix well. The extract can\nbe used **the next day** for seed treatment.",
+   "source": "organic_preparations",
+   "heading": "Amirthakaraisal",
+   "index": 14
+  },
+  {
+   "text": "Amrit Pani\n\n**Method.** Mix 10 kg cow dung with 500 g honey into a creamy paste. Add 250 g\nghee and mix at high speed. Dilute with 200 litres of water.",
+   "source": "organic_preparations",
+   "heading": "Amrit Pani",
+   "index": 15
+  },
+  {
+   "text": "Neem preparations\n\nNeem is the most widely used botanical in Indian organic farming, and it appears\nin two distinct forms that should not be confused with each other.\n\n**Neem seed kernel extract (NSKE).** Grind neem seed kernels, soak overnight in\nwater, strain, and spray. Used against a range of sucking and chewing pests.\n\n**Neem oil spray.** Mix 3 ml neem oil per litre of water with a few drops of mild\nsoap to help it spread, and spray both leaf surfaces in the early morning or\nevening.\n\n**Neem leaf extract.** Soak 1 kg of fresh neem leaves in 10 litres of water\novernight, strain, and spray the filtrate. Published trials show it suppresses\n*Alternaria solani* and other fungal pathogens, with higher concentrations giving\nbetter control.\n\nNeem products have documented antifungal and insecticidal activity. They work best\npreventively and repeatedly, not as a single rescue spray.",
+   "source": "organic_preparations",
+   "heading": "Neem preparations",
+   "index": 16
+  },
+  {
+   "text": "Other documented preparations\n\n- **Prosopis decoction (Prosophis Kashayam).** Boil 2 kg of chopped Prosopis\n  plant material (excluding roots) in 8 litres of water, reducing to one quarter\n  of the volume. Cool, filter through cloth, and store. Yield about 2 litres.\n- **Sweet flag extract.** Mix 500 g powdered sweet flag rhizome in 2.5 litres of\n  water. Tie seed in small cloth bags and soak for 30 minutes, then dry in the\n  shade before sowing.\n- **Cow urine spray.** Dilute cow urine 1:10 with water and spray. Used as part\n  of a wider programme rather than on its own.\n- **Wood ash.** Dusted thinly over foliage in the early morning while dew is\n  present, to dry the leaf surface and slow the spread of fungal disease.",
+   "source": "organic_preparations",
+   "heading": "Other documented preparations",
+   "index": 17
+  },
+  {
+   "text": "Honest limits\n\nThese preparations support plant health and soil biology. They are not a cure for\nan established outbreak, and they are not a substitute for correct identification\nof the problem. If a crop is seriously affected, act on the specific disease —\ncultural measures and biocontrol first, and confirm with your KVK before relying\non any single remedy.\n\nWhere a preparation is described here as traditional, it means it is documented\npractice. It does not mean it has been proven to control a named disease under\nfield conditions in every region.",
+   "source": "organic_preparations",
+   "heading": "Honest limits",
+   "index": 18
+  },
+  {
+   "text": "Source: ICAR crop protection advisories; published plant pathology literature.\nCompiled for Agri AI's farming assistant.\n\nPepper (*Capsicum* spp.) — chilli and bell pepper — is grown across India as both\na rainfed and an irrigated crop. Its most common bacterial disease is seed-borne,\nwhich is why seed handling matters more here than in most crops.",
+   "source": "pepper_diseases",
+   "heading": "",
+   "index": 19
+  },
+  {
+   "text": "Bacterial Spot (*Xanthomonas* spp.)\n\n**What it looks like.** Small water-soaked spots on the leaves that turn brown to\nblack and become angular, because the veins limit their spread. Severely affected\nleaves yellow and drop, leaving the fruit exposed to sunscald. On the fruit,\nspots are raised, dark and scabby.\n\n**Why it starts with the seed.** The bacteria survive inside and on the seed coat.\nSowing infected seed introduces the disease into a clean field, and no amount of\nspraying afterwards will undo that. This is the key fact about bacterial spot.",
+   "source": "pepper_diseases",
+   "heading": "Bacterial Spot (*Xanthomonas* spp.)",
+   "index": 20
+  },
+  {
+   "text": "Bacterial Spot (*Xanthomonas* spp.)\n\ncted seed introduces the disease into a clean field, and no amount of\nspraying afterwards will undo that. This is the key fact about bacterial spot.\n\n**Management.**\n- **Start with certified disease-free seed.** If you save your own seed, treat it\n  in hot water at 50°C for 25 minutes, then cool it immediately in cold water and\n  dry it in the shade before sowing. Do not guess at the temperature — too hot\n  kills the seed, too cool does not kill the bacteria.\n- **Remove infected plants and clear debris** at the end of the season.",
+   "source": "pepper_diseases",
+   "heading": "Bacterial Spot (*Xanthomonas* spp.)",
+   "index": 21
+  },
+  {
+   "text": "Bacterial Spot (*Xanthomonas* spp.)\n\ntemperature — too hot\n  kills the seed, too cool does not kill the bacteria.\n- **Remove infected plants and clear debris** at the end of the season. The\n  bacteria survive in crop residue and on volunteer plants.\n- **Avoid overhead irrigation**, and do not prune or harvest while the foliage is\n  wet — the bacteria spread on splashing water and on hands and tools.\n- **Rotate** away from pepper and tomato for at least one season.\n- **Copper-based sprays** such as Bordeaux mixture are used as a protectant.\n  Bacterial populations can develop resistance, so they work best as part of a\n  combined programme rather than alone.",
+   "source": "pepper_diseases",
+   "heading": "Bacterial Spot (*Xanthomonas* spp.)",
+   "index": 22
+  },
+  {
+   "text": "Anthracnose (*Colletotrichum* spp.)\n\n**What it looks like.** Sunken, circular lesions on ripening fruit, often with\nconcentric rings of small black dots (the spore masses). It is mainly a fruit\ndisease and is worst in wet weather.\n\n**Management.** Use clean seed, rotate, avoid overhead irrigation, and remove\ninfected fruit from the field rather than dropping them. Handle fruit carefully\nat harvest — wounds are the main entry point.",
+   "source": "pepper_diseases",
+   "heading": "Anthracnose (*Colletotrichum* spp.)",
+   "index": 23
+  },
+  {
+   "text": "Powdery Mildew (*Leveillula taurica*)\n\n**What it looks like.** Unlike most powdery mildews, this one appears as white\npowdery patches on the *underside* of the leaf, with yellowing on the upper\nsurface. It is common in warm, dry days with cool nights.\n\n**Management.** Improve air movement, avoid excessive nitrogen, and remove\nseverely affected leaves. Neem-based sprays and sulphur are both used.",
+   "source": "pepper_diseases",
+   "heading": "Powdery Mildew (*Leveillula taurica*)",
+   "index": 24
+  },
+  {
+   "text": "Damping Off in the Nursery (*Pythium*, *Rhizoctonia*)\n\n**What it looks like.** Seedlings collapse at the soil line, often in patches.\nThe stem is thin, watery and necrotic where it meets the soil.\n\n**Management.** This is a soil and nursery hygiene problem. Use clean, well-drained\npotting mix, do not overwater, sow thinly, and treat the nursery bed with\n*Trichoderma viride* at 10-15 g per kg of potting mix. Good airflow through the\nnursery is as important as any treatment.",
+   "source": "pepper_diseases",
+   "heading": "Damping Off in the Nursery (*Pythium*, *Rhizoctonia*)",
+   "index": 25
+  },
+  {
+   "text": "General prevention for pepper\n\n1. **Seed hygiene first.** Hot water treatment or certified seed — bacterial spot\n   is a seed problem before it is a field problem.\n2. **Keep the canopy dry.** Drip irrigation at the base rather than sprinklers.\n3. **Rotate** with a non-solanaceous crop.\n4. **Clear debris** at the end of every season; do not plough infected residue\n   back in.\n5. **Handle plants and fruit gently.** Many pepper pathogens enter through\n   wounds.\n6. **Scout after rain.** Bacterial and fungal fruit rots both follow wet spells.",
+   "source": "pepper_diseases",
+   "heading": "General prevention for pepper",
+   "index": 26
+  },
+  {
+   "text": "Harvesting and post-harvest\n\nPick chilli at the right maturity for your market — green for the fresh market,\nfully red for drying. For dried chilli, sun-dry on clean sheets rather than on\nbare ground, and dry until the stem snaps rather than bends. Inadequate drying is\nthe main cause of mould and aflatoxin problems in stored chilli.\n\nStore in clean, dry, ventilated containers, and never mix fruit from an affected\npatch with sound fruit.",
+   "source": "pepper_diseases",
+   "heading": "Harvesting and post-harvest",
+   "index": 27
+  },
+  {
+   "text": "A note on confidence\n\nA photograph can suggest a disease but cannot confirm it. Nutrient deficiency,\nmite damage and herbicide drift can all mimic the spotting patterns seen in\nbacterial and fungal disease. Where the diagnosis matters, confirm with your local\nKVK or extension officer.",
+   "source": "pepper_diseases",
+   "heading": "A note on confidence",
+   "index": 28
+  },
+  {
+   "text": "Source: ICAR crop protection advisories; TNAU Agritech Portal; published plant\npathology literature. Compiled for Agri AI's farming assistant.\n\nPotato (*Solanum tuberosum*) is the most important tuber crop in India and is\nattacked by two foliar blights that look similar but behave very differently.\nLate blight can destroy a field in days; early blight is a slower, seasonal\nproblem. Distinguishing them is the first decision a farmer has to make.",
+   "source": "potato_diseases",
+   "heading": "",
+   "index": 29
+  },
+  {
+   "text": "Late Blight (*Phytophthora infestans*)\n\n**Why it matters.** Late blight is the most destructive potato disease in India.\nUnder cool, wet conditions it can take a field from healthy to collapsed within a\nweek, and it destroys tubers in store as well as in the field.\n\n**What it looks like.** Water-soaked grey-green lesions that enlarge rapidly into\nbrown necrotic patches. In damp weather a white mould appears on the underside of\nthe leaf, and the leaf margins curl. The plant has a distinct musty smell in\nadvanced stages. Tubers develop a shallow brown rot.\n\n**When it strikes.** Cool (18-22°C) and wet weather with prolonged leaf wetness.\nOvercast days with drizzle are the classic trigger. Once established, it spreads\non wind and rain splash.",
+   "source": "potato_diseases",
+   "heading": "Late Blight (*Phytophthora infestans*)",
+   "index": 30
+  },
+  {
+   "text": "Late Blight (*Phytophthora infestans*)\n\nd wet weather with prolonged leaf wetness.\nOvercast days with drizzle are the classic trigger. Once established, it spreads\non wind and rain splash.\n\n**Management.**\n- **Destroy infected plants at once.** Uproot and remove them from the field\n  entirely. Do not wait, and do not leave the material at the field edge.\n- **Earth up the ridges properly.** Well-formed ridges reduce the chance of\n  spores washing down onto the tubers, which is what turns a foliar outbreak into\n  a storage loss.\n- **Water at the base only.** Overhead irrigation extends leaf wetness and drives\n  the epidemic.\n- **Apply Bordeaux mixture as a protectant.** It must be on the leaf before\n  infection; re-apply after rain.\n- **Plant a resistant variety.** Ask your KVK or state agriculture department\n  which varieties recommended for your district carry late blight resistance.",
+   "source": "potato_diseases",
+   "heading": "Late Blight (*Phytophthora infestans*)",
+   "index": 31
+  },
+  {
+   "text": "Late Blight (*Phytophthora infestans*)\n\nant a resistant variety.** Ask your KVK or state agriculture department\n  which varieties recommended for your district carry late blight resistance.\n- **Destroy the haulm before harvest** if blight is present, and wait before\n  lifting so spores on the soil surface die off.",
+   "source": "potato_diseases",
+   "heading": "Late Blight (*Phytophthora infestans*)",
+   "index": 32
+  },
+  {
+   "text": "Early Blight (*Alternaria solani*)\n\n**What it looks like.** Brown to black spots with concentric rings on the older\nleaves, often with a yellow halo. Lesions merge as the disease progresses and the\nleaf dries out and drops. It moves upward through the canopy over the season.\n\n**When it strikes.** Warm, humid weather, and it is worse in plants under stress\n— particularly low potassium and poor nutrition. It usually appears after tuber\ninitiation.\n\n**Management.**\n- Remove affected lower foliage and destroy crop debris at the end of the season.\n- Follow a soil test and maintain balanced nutrition, especially potassium.\n  Stressed plants show early blight sooner and more severely.\n- Apply *Trichoderma viride* to the soil at planting or as a drench at 5 g per\n  litre of water.\n- Spray neem-based preparations every 7-10 days while the weather stays humid.",
+   "source": "potato_diseases",
+   "heading": "Early Blight (*Alternaria solani*)",
+   "index": 33
+  },
+  {
+   "text": "Common Scab (*Streptomyces scabies*)\n\n**What it looks like.** Rough, corky, brown lesions on the tuber skin. It does\nnot usually reduce yield much but it badly affects market value.\n\n**Management.** The organism prefers dry, alkaline soil. Keep the soil moist\nduring tuber initiation, avoid fresh manure and lime before planting, and rotate\naway from potato and beet for at least three years.",
+   "source": "potato_diseases",
+   "heading": "Common Scab (*Streptomyces scabies*)",
+   "index": 34
+  },
+  {
+   "text": "Bacterial Wilt (*Ralstonia solanacearum*)\n\n**What it looks like.** Sudden wilting of the whole plant while the leaves are\nstill green, followed by yellowing and collapse. Cutting the stem reveals brown\ndiscolouration inside and a milky bacterial ooze.\n\n**Management.** There is no cure once a plant is infected. Remove and destroy\naffected plants, do not save seed tubers from an affected field, rotate away from\npotato, tomato and brinjal for at least three seasons, and improve drainage.",
+   "source": "potato_diseases",
+   "heading": "Bacterial Wilt (*Ralstonia solanacearum*)",
+   "index": 35
+  },
+  {
+   "text": "General prevention that applies to all of them\n\n1. **Use certified, disease-free seed tubers.** This is the single most effective\n   control for the seed- and soil-borne problems.\n2. **Rotate** away from potato, tomato and brinjal. A cereal or legume in between\n   reduces soil-borne inoculum.\n3. **Keep foliage dry.** Base-only irrigation and morning watering.\n4. **Maintain ridges** so spores and water do not reach the tubers.\n5. **Feed the crop properly.** A soil test is cheaper than a lost crop.\n6. **Scout after every wet spell.** Late blight can appear within days of cool,\n   wet weather — walk the field and check the lower leaves and undersides first.",
+   "source": "potato_diseases",
+   "heading": "General prevention that applies to all of them",
+   "index": 36
+  },
+  {
+   "text": "Storing the harvest\n\nLate blight and soft rot both develop in store. Only store sound, dry tubers.\nCure them in a dark, ventilated place for 10-15 days before moving them into\nlonger-term storage, and discard any tuber that is already showing rot. Never\nstore blighted tubers with healthy ones.",
+   "source": "potato_diseases",
+   "heading": "Storing the harvest",
+   "index": 37
+  },
+  {
+   "text": "A note on confidence\n\nA photograph can suggest a disease but cannot confirm it. Symptoms overlap with\nnutrient deficiency, herbicide injury and mite damage. Where the diagnosis\nmatters, confirm with your local KVK or extension officer before spending money\non treatment.",
+   "source": "potato_diseases",
+   "heading": "A note on confidence",
+   "index": 38
+  },
+  {
+   "text": "Source: ICAR crop protection advisories; TNAU Agritech Portal. Compiled for Agri\nAI's farming assistant.\n\nSeveral of the most damaging crop diseases start at sowing. Bacterial spot in\npepper, late blight in potato, and damping off in every nursery are all far\ncheaper to prevent at the seed stage than to treat later. A clean start is the\nhighest-return habit in the whole season.",
+   "source": "seed_and_nursery",
+   "heading": "",
+   "index": 39
+  },
+  {
+   "text": "Choosing seed\n\n- **Use certified seed** from a recognised source. It costs more per kilogram and\n  saves multiples of that in reduced disease pressure.\n- **Check the label** for germination percentage, purity and the date of testing.\n  Old seed germinates poorly and produces weak seedlings.\n- **Choose a variety suited to your district**, not just to the market. Ask your\n  KVK which varieties are recommended locally, and prefer varieties with\n  resistance to the diseases common in your area.\n- **Do not save seed from a diseased crop.** For potato, never save tubers from a\n  field that had bacterial wilt or late blight.",
+   "source": "seed_and_nursery",
+   "heading": "Choosing seed",
+   "index": 40
+  },
+  {
+   "text": "Seed treatment\n\nSeed treatment is cheap, quick, and one of the most effective disease measures\navailable.\n\n**Hot water treatment** (for seed-borne bacteria such as *Xanthomonas* in pepper\nand tomato):\n1. Heat water to **50°C** and hold it there. Use a thermometer — this does not\n   work by guesswork.\n2. Soak the seed for **25 minutes**.\n3. Cool immediately in cold water.\n4. Dry in the **shade**, not in direct sun.\n5. Sow as soon as possible.\n\nToo hot kills the seed; too cool does not kill the bacteria. This is the one step\nwhere precision genuinely matters.",
+   "source": "seed_and_nursery",
+   "heading": "Seed treatment",
+   "index": 41
+  },
+  {
+   "text": "Seed treatment\n\nn.\n5. Sow as soon as possible.\n\nToo hot kills the seed; too cool does not kill the bacteria. This is the one step\nwhere precision genuinely matters.\n\n**Fungicide or biocontrol treatment:**\n- ***Trichoderma viride*** — mix 5-10 g per kg of seed with a sticker (gum arabic\n  or a 2% starch solution) and sow immediately.\n- ***Pseudomonas fluorescens*** — 10 g per kg of seed, similarly applied.\n- Do not mix biocontrol agents with chemical fungicides; the chemical kills the\n  organism you just applied.\n\n**Traditional seed treatments (TNAU):**\n- **Panchagavya** — soak seed or dip seedlings in a 3% solution for 20 minutes.\n- **Amirthakaraisal** — ready the next day after mixing, used for seed treatment.\n- **Sweet flag extract** — soak seed in 500 g powdered rhizome per 2.5 litres of\n  water for 30 minutes, then dry in the shade.",
+   "source": "seed_and_nursery",
+   "heading": "Seed treatment",
+   "index": 42
+  },
+  {
+   "text": "Nursery management\n\nDamping off is the classic nursery failure: seedlings collapse at the soil line,\noften in patches, and the whole bed can be lost in days.\n\n**Preventing it:**\n- Use a **clean, well-drained** potting mix. Never reuse mix from a bed that had\n  damping off.\n- Treat the nursery bed with ***Trichoderma viride*** at 10-15 g per kg of potting\n  mix, or apply 250 g per square metre mixed into the top 5-8 cm.\n- **Do not overwater.** A saturated nursery is where damping off begins.\n- **Sow thinly.** Crowded seedlings stay wet and are easily infected from one\n  another.\n- **Give the nursery airflow.** Good ventilation is as important as any\n  treatment, and it is free.\n- **Raise the beds** so water drains away rather than pooling.",
+   "source": "seed_and_nursery",
+   "heading": "Nursery management",
+   "index": 43
+  },
+  {
+   "text": "Nursery management\n\nrsery airflow.** Good ventilation is as important as any\n  treatment, and it is free.\n- **Raise the beds** so water drains away rather than pooling.\n\n**Raising healthy seedlings:**\n- Use a raised bed or trays with a free-draining medium.\n- Water with a fine rose or drip — a strong stream damages young stems.\n- Harden the seedlings before transplanting: reduce watering and expose them to\n  more sun for 5-7 days beforehand.\n- Transplant at the right age. Overgrown seedlings establish poorly and are more\n  prone to stem disease.",
+   "source": "seed_and_nursery",
+   "heading": "Nursery management",
+   "index": 44
+  },
+  {
+   "text": "Transplanting\n\n- **Dip the root ball** in a *Pseudomonas fluorescens* or *Trichoderma* slurry\n  (10 g per litre) for 15-20 minutes before planting.\n- **Do not bury the stem deeper than it was in the nursery.** Deep planting is a\n  common cause of collar rot.\n- **Water immediately after transplanting** to settle the soil around the roots.\n- **Avoid transplanting in the heat of the day.** Late afternoon or an overcast\n  day gives the seedling time to recover.",
+   "source": "seed_and_nursery",
+   "heading": "Transplanting",
+   "index": 45
+  },
+  {
+   "text": "Storage of seed and planting material\n\n- Store seed cool, dry and dark, in a sealed container with a desiccant if\n  available.\n- Keep seed tubers of potato in a dark, ventilated place; light makes them green\n  and unpalatable.\n- Never store seed from a diseased crop with clean seed.",
+   "source": "seed_and_nursery",
+   "heading": "Storage of seed and planting material",
+   "index": 46
+  },
+  {
+   "text": "Practical summary\n\n1. Buy certified seed, or treat your own properly.\n2. Hot water treatment at exactly 50°C for 25 minutes for pepper and tomato seed.\n3. Treat with *Trichoderma* or *Pseudomonas* before sowing.\n4. Keep the nursery clean, drained, thinly sown and ventilated.\n5. Dip roots before transplanting and water in immediately.\n6. Never save seed from a diseased crop.",
+   "source": "seed_and_nursery",
+   "heading": "Practical summary",
+   "index": 47
+  },
+  {
+   "text": "Source: ICAR soil health guidance; TNAU Agritech Portal. Compiled for Agri AI's\nfarming assistant.\n\nMost disease problems a farmer sees on the leaf began in the soil. A crop that is\nwell fed and growing in living soil resists infection far better than a stressed\none. Nutrition is not separate from plant protection — it is the first line of it.",
+   "source": "soil_health_and_nutrition",
+   "heading": "",
+   "index": 48
+  },
+  {
+   "text": "Start with a soil test\n\nA soil test tells you what your soil actually has, rather than what a standard\nbag of fertiliser assumes it has. Applying a fixed dose to every field wastes\nmoney on some and starves others. Test every two to three years, and take the\nsample properly:\n\n- Sample from 8-10 spots across the field in a zig-zag pattern.\n- Take soil from 15-20 cm depth for field crops.\n- Mix the samples in a clean bucket, quarter it, and send about 500 g.\n- Avoid sampling near a bund, a manure heap, or where a crop has just been\n  harvested.\n\nSoil health cards are issued through state agriculture departments and KVKs, and\nusually carry a crop-specific fertiliser recommendation on the back.",
+   "source": "soil_health_and_nutrition",
+   "heading": "Start with a soil test",
+   "index": 49
+  },
+  {
+   "text": "The major nutrients, in plain terms\n\n**Nitrogen (N)** drives leaf and stem growth. Too little gives pale, stunted\nplants. Too much gives dark, soft, leafy growth that is *more* attractive to\npests and more prone to fungal disease — over-application is a real risk, not a\nsafety margin.\n\n**Phosphorus (P)** drives root development and early establishment. It matters\nmost at sowing and transplanting.\n\n**Potassium (K)** drives fruit and tuber development, water regulation and stem\nstrength. Potassium-deficient plants show early blight and similar diseases\nsooner and more severely. This is one of the most commonly deficient nutrients in\nintensive vegetable systems.\n\n**Secondary and micronutrients** — calcium, magnesium, sulphur, zinc, boron, iron\n— matter in small quantities but cause real problems when absent. Boron\ndeficiency, for example, causes hollow stem and poor fruit set, and is often\nmistaken for disease.",
+   "source": "soil_health_and_nutrition",
+   "heading": "The major nutrients, in plain terms",
+   "index": 50
+  },
+  {
+   "text": "Organic matter: the part that is usually neglected\n\nOrganic matter is what makes soil hold water and nutrients, and what feeds the\norganisms that suppress disease. Indian soils under continuous chemical farming\ncommonly fall below 0.5% organic carbon, which is low.\n\nWays to build it:\n\n- **Farmyard manure** — well-rotted, applied before sowing. Never use fresh\n  manure; it burns roots and carries weed seed and pathogens.\n- **Compost** — crop residue, cattle dung and kitchen waste, turned and kept\n  moist until dark, crumbly and odourless.\n- **Vermicompost** — earthworm-processed material, richer in available nutrients\n  and microbial life than ordinary compost.\n- **Green manure** — grow sunhemp, dhaincha or a legume and plough it in before\n  flowering.\n- **Crop residue** — retain what you can rather than burning it.",
+   "source": "soil_health_and_nutrition",
+   "heading": "Organic matter: the part that is usually neglected",
+   "index": 51
+  },
+  {
+   "text": "Organic matter: the part that is usually neglected\n\nn manure** — grow sunhemp, dhaincha or a legume and plough it in before\n  flowering.\n- **Crop residue** — retain what you can rather than burning it. Burning destroys\n  the organic matter and the soil life with it.\n- **Mulching** — a straw or plastic mulch conserves moisture, moderates soil\n  temperature, and blocks the soil splash that spreads foliar disease.",
+   "source": "soil_health_and_nutrition",
+   "heading": "Organic matter: the part that is usually neglected",
+   "index": 52
+  },
+  {
+   "text": "Composting that actually works\n\nA compost pile needs four things: the right mix of materials, moisture, air, and\ntime.\n\n- **Mix browns and greens.** Dry material (straw, dry leaves) provides carbon;\n  green material (cattle dung, fresh residue, kitchen waste) provides nitrogen.\n  Roughly 3 parts brown to 1 part green by volume.\n- **Keep it as moist as a wrung-out cloth.** Too dry and nothing happens; too wet\n  and it goes anaerobic and smells.\n- **Turn it every 2-3 weeks** to bring air in.\n- **It is ready when** it is dark, crumbly, has an earthy smell, and you cannot\n  recognise the original material — typically 2-3 months.\n\n**Do not compost diseased plant material** for use on the same crop. Most home\ncompost piles do not reach the temperature needed to kill pathogens.",
+   "source": "soil_health_and_nutrition",
+   "heading": "Composting that actually works",
+   "index": 53
+  },
+  {
+   "text": "Biofertilisers and soil biological health\n\n- **Rhizobium** — for legumes; fixes atmospheric nitrogen in root nodules.\n- **Azotobacter / Azospirillum** — free-living nitrogen fixers for cereals and\n  vegetables.\n- **Phosphate solubilising bacteria (PSB)** — release phosphorus already in the\n  soil but unavailable to the plant.\n- ***Trichoderma* and *Pseudomonas*** — as much soil health agents as disease\n  control, since they colonise roots and compete with pathogens.\n- **Mycorrhizal fungi (VAM)** — extend the root system's reach for water and\n  phosphorus.\n\nTreat biofertilisers as living products: store them cool, out of direct sun, and\nnever mix them with chemical fungicides or with concentrated fertiliser solutions.",
+   "source": "soil_health_and_nutrition",
+   "heading": "Biofertilisers and soil biological health",
+   "index": 54
+  },
+  {
+   "text": "Practical order of operations\n\n1. Get a soil test. Do not guess.\n2. Build organic matter every season — it is slow but compounding.\n3. Apply the major nutrients to the soil test recommendation.\n4. Correct micronutrient deficiencies, which are usually small and cheap to fix.\n5. Use biofertilisers to make what is already in the soil available.\n6. Monitor the crop and adjust, rather than following a fixed calendar.",
+   "source": "soil_health_and_nutrition",
+   "heading": "Practical order of operations",
+   "index": 55
+  },
+  {
+   "text": "A note on confidence\n\nNutrition problems and disease problems look alike on a leaf. Yellowing can be\nnitrogen deficiency, waterlogging, root damage, or a virus. Before treating for\ndisease, rule out nutrition and water — it is cheaper and often the real answer.",
+   "source": "soil_health_and_nutrition",
+   "heading": "A note on confidence",
+   "index": 56
+  },
+  {
+   "text": "Source: ICAR crop protection advisories; TNAU Agritech Portal; published plant\npathology literature. Compiled for Agri AI's farming assistant.\n\nTomato (*Solanum lycopersicum*) is attacked by several foliar diseases that look\nsimilar to an untrained eye but need different responses. Getting the\nidentification right matters more than the spray schedule.",
+   "source": "tomato_diseases",
+   "heading": "",
+   "index": 57
+  },
+  {
+   "text": "Early Blight (*Alternaria solani*)\n\n**What it looks like.** Dark brown spots with concentric rings, like a target, on\nthe older and lower leaves first. The tissue around each spot turns yellow. In\nheavy infections the leaves dry up and drop, and the fruit can develop dark\nsunken lesions at the stem end.\n\n**When it strikes.** Warm, humid weather with alternating wet and dry periods.\nIt usually appears after flowering and is worse in plants under stress — low\nnitrogen, poor nutrition, or heavy fruit load.\n\n**Why it starts low.** The fungus survives in the soil and in infected crop\ndebris. Rain or overhead irrigation splashes spores onto the lowest leaves, which\nis why the disease almost always begins there.",
+   "source": "tomato_diseases",
+   "heading": "Early Blight (*Alternaria solani*)",
+   "index": 58
+  },
+  {
+   "text": "Early Blight (*Alternaria solani*)\n\nnd in infected crop\ndebris. Rain or overhead irrigation splashes spores onto the lowest leaves, which\nis why the disease almost always begins there.\n\n**Management.**\n- Remove and destroy affected lower leaves as soon as the target spots appear.\n  Bag them and take them out of the field; do not compost them.\n- Mulch around the base and water at the root, not over the canopy, to break the\n  soil-to-leaf route.\n- Stake plants and remove lower leaves so the canopy dries quickly.\n- Rotate away from tomato, potato and other solanaceous crops for at least two\n  seasons.\n- Spray *Pseudomonas fluorescens* at 5 g per litre of water in the evening,\n  covering both leaf surfaces. Biocontrol works best preventively and repeatedly.\n- Apply *Trichoderma viride* to the soil at 5 g per litre as a drench, or mix\n  5 g per kg into the soil at transplanting.",
+   "source": "tomato_diseases",
+   "heading": "Early Blight (*Alternaria solani*)",
+   "index": 59
+  },
+  {
+   "text": "Late Blight (*Phytophthora infestans*)\n\n**What it looks like.** Large, irregular water-soaked grey-green patches that\nturn brown and papery. In humid weather a pale fuzzy white mould appears on the\nunderside of the leaf. The whole plant can collapse within days.\n\n**When it strikes.** Cool, wet weather — prolonged leaf wetness is the trigger.\nThis is the most destructive tomato disease and it moves extremely fast.\n\n**Management.**\n- **Uproot and destroy infected plants immediately.** Do not wait to see how it\n  develops. This is the single most important action.\n- Stop overhead irrigation and open up the canopy so foliage dries.\n- Apply Bordeaux mixture as a *protectant* — it must be on the leaf before\n  infection, and needs re-applying after rain.\n- Plant resistant varieties. Ask your KVK or state agriculture department which\n  varieties recommended for your district carry late blight tolerance.",
+   "source": "tomato_diseases",
+   "heading": "Late Blight (*Phytophthora infestans*)",
+   "index": 60
+  },
+  {
+   "text": "Late Blight (*Phytophthora infestans*)\n\nPlant resistant varieties. Ask your KVK or state agriculture department which\n  varieties recommended for your district carry late blight tolerance.\n\n**Do not confuse late and early blight.** Early blight has target-like rings and\nstarts on old leaves; late blight has irregular water-soaked patches and white\nmould underneath. Late blight demands immediate action; early blight is managed\nover the season.",
+   "source": "tomato_diseases",
+   "heading": "Late Blight (*Phytophthora infestans*)",
+   "index": 61
+  },
+  {
+   "text": "Leaf Mold (*Passalora fulva*)\n\n**What it looks like.** Pale yellow spots on the upper leaf surface that turn\nbrown, with a velvety olive-green to brown mould developing on the underside.\n\n**When it strikes.** High humidity and poor air movement — it is mainly a\nprotected-cultivation and polyhouse problem, and rarely severe in open fields.\n\n**Management.** This is a humidity disease, so ventilation is the cure. Prune\nlower leaves, widen spacing, open vents or side curtains, and water at the base\nonly. Remove affected leaves and clear debris at the end of the season.",
+   "source": "tomato_diseases",
+   "heading": "Leaf Mold (*Passalora fulva*)",
+   "index": 62
+  },
+  {
+   "text": "Septoria Leaf Spot (*Septoria lycopersici*)\n\n**What it looks like.** Many small circular spots with grey centres and dark\nmargins, starting on the lowest leaves. Tiny black dots (the spore bodies) are\nvisible inside the spots. Leaves yellow and drop prematurely.\n\n**When it strikes.** Warm, wet weather. Like early blight it starts low and\nclimbs, and it survives in soil and debris between seasons.\n\n**Management.** Strip infected lower leaves early, mulch to block soil splash,\nrotate for two seasons, and keep the canopy dry.",
+   "source": "tomato_diseases",
+   "heading": "Septoria Leaf Spot (*Septoria lycopersici*)",
+   "index": 63
+  },
+  {
+   "text": "General prevention that applies to all of them\n\n1. **Start clean.** Certified seed, clean nursery, and a bed free of last\n   season's debris.\n2. **Keep the foliage dry.** Drip or furrow irrigation at the base rather than\n   overhead sprinklers. Water in the morning if you must water overhead.\n3. **Open the canopy.** Staking, pruning lower leaves and correct spacing all\n   reduce the leaf wetness that these diseases need.\n4. **Feed the plant properly.** Stressed plants get sick sooner. Follow a soil\n   test rather than a fixed fertiliser dose.\n5. **Rotate.** Two seasons away from tomato, potato and other solanaceous crops\n   reduces soil-borne inoculum substantially.\n6. **Scout twice a week.** Check the oldest, lowest leaves first — that is where\n   most of these diseases appear, and catching them there is far easier.",
+   "source": "tomato_diseases",
+   "heading": "General prevention that applies to all of them",
+   "index": 64
+  },
+  {
+   "text": "A note on confidence\n\nA photograph can suggest a disease but cannot confirm it. Symptoms overlap, and\nnutrient deficiency, herbicide drift and mite damage can all mimic disease\npatterns. Where a diagnosis matters, confirm with your local KVK or extension\nofficer before spending money on treatment.",
+   "source": "tomato_diseases",
+   "heading": "A note on confidence",
+   "index": 65
+  },
+  {
+   "text": "Source: ICAR water management guidance; TNAU Agritech Portal. Compiled for Agri\nAI's farming assistant.\n\nWater is the input farmers most often get wrong in both directions — too little\nand the crop is stunted, too much and the roots suffocate and disease takes hold.\nMost foliar disease in vegetables is also a water problem, because wet leaves are\nwhat fungal and bacterial pathogens need.",
+   "source": "water_and_irrigation",
+   "heading": "",
+   "index": 66
+  },
+  {
+   "text": "Why water management is disease management\n\n- **Splashing water carries inoculum.** Soil-borne pathogens such as *Alternaria*,\n  *Septoria* and *Xanthomonas* reach the leaves on water splashed up from the\n  soil surface. Base-only irrigation removes this route entirely.\n- **Leaf wetness is the trigger.** Most fungal spores need a period of continuous\n  leaf wetness to infect. A canopy that dries quickly between waterings is far\n  harder to infect.\n- **Waterlogging causes root disease.** Saturated soil has no oxygen, roots die\n  back, and *Pythium*, *Phytophthora* and bacterial wilt move in. A plant with\n  damaged roots also shows yellowing that is easily mistaken for nutrient\n  deficiency or leaf disease.",
+   "source": "water_and_irrigation",
+   "heading": "Why water management is disease management",
+   "index": 67
+  },
+  {
+   "text": "The right way to irrigate\n\n**Water at the base, not over the canopy.** Drip or furrow irrigation keeps the\nfoliage dry. If you must use a sprinkler, water in the early morning so the leaves\ndry during the day — never in the evening, which leaves them wet all night.\n\n**Water deeply and less often.** Shallow, frequent watering encourages a shallow\nroot system that cannot withstand a dry spell. A deeper soak encourages roots\ndownward.\n\n**Match the schedule to the crop stage.** Young plants need little; flowering and\nfruit or tuber development need the most; and near maturity the requirement drops\nagain. Water stress during flowering causes flower drop and poor fruit set.\n\n**Check before you water.** Push a finger or a small trowel into the soil. If it\nis moist 5 cm down, you do not need to water yet, whatever the calendar says.",
+   "source": "water_and_irrigation",
+   "heading": "The right way to irrigate",
+   "index": 68
+  },
+  {
+   "text": "Drainage matters as much as irrigation\n\n- Make sure the field has a way for excess water to leave — a slight slope, or\n  open drains at the low end.\n- In heavy soils, form raised beds so roots sit above the waterlogged zone.\n- After heavy rain, walk the field and drain any standing water. Even 24 hours of\n  waterlogging damages most vegetable roots.\n- Do not let water from an affected patch drain into a healthy one.",
+   "source": "water_and_irrigation",
+   "heading": "Drainage matters as much as irrigation",
+   "index": 69
+  },
+  {
+   "text": "Mulching\n\nA mulch of straw, crop residue or plastic film:\n\n- reduces evaporation, so less water is needed;\n- moderates soil temperature;\n- suppresses weeds;\n- and, most importantly for disease, blocks the soil splash that carries\n  pathogens onto the lower leaves.\n\nThis is one of the cheapest and most effective disease-prevention measures\navailable, and it is usually overlooked.",
+   "source": "water_and_irrigation",
+   "heading": "Mulching",
+   "index": 70
+  },
+  {
+   "text": "Irrigation method by situation\n\n| Situation | Recommended | Why |\n|---|---|---|\n| Vegetables, high-value crops | Drip | Precise, keeps foliage dry, allows fertigation |\n| Field crops, level land | Furrow | Simple, keeps water off the canopy |\n| Water-scarce areas | Drip with mulch | Largest saving per rupee |\n| Sloping land | Furrow with contour | Reduces runoff and erosion |\n| Nursery | Fine rose can or drip | Seedlings are easily damaged by a strong stream |",
+   "source": "water_and_irrigation",
+   "heading": "Irrigation method by situation",
+   "index": 71
+  },
+  {
+   "text": "Water quality\n\n- **Salinity.** Repeated use of saline water builds salts in the root zone and\n  reduces yield. Leach them out with a heavier irrigation occasionally.\n- **Hard water and alkaline water** can raise soil pH over time, which affects\n  nutrient availability.\n- **Never irrigate with water that has drained from a field with bacterial wilt**\n  or any root disease.",
+   "source": "water_and_irrigation",
+   "heading": "Water quality",
+   "index": 72
+  },
+  {
+   "text": "Practical summary\n\n1. Water at the base. Keep the leaves dry.\n2. Water in the morning if you must water overhead.\n3. Water deeply and less often, not shallowly and often.\n4. Mulch — for moisture and for disease.\n5. Make sure water can leave the field as easily as it arrives.\n6. Check the soil before watering rather than following a fixed calendar.",
+   "source": "water_and_irrigation",
+   "heading": "Practical summary",
+   "index": 73
+  }
+ ]
+}

@@ -1,0 +1,134 @@
+# Agri AI — Backend
+
+Python + FastAPI service. Two clearly separated responsibilities:
+
+| Package | Responsibility | LLM access |
+|---|---|---|
+| `app/models/` | Disease detection — PyTorch / EfficientNet-B0 inference | **Never** |
+| `app/rag/` | Farming assistant — LlamaIndex retrieval + Gemini generation | Gemini only |
+
+The detection model never touches Gemini, and Gemini never performs diagnosis.
+
+## Structure
+
+```
+app/
+├── main.py              # FastAPI app, CORS, lifespan (model + index load)
+├── config.py            # pydantic-settings, reads .env
+├── core/                # logging, Supabase clients, storage, JWT verification
+├── api/
+│   ├── router.py        # top-level router
+│   └── routes/
+│       ├── health.py    # /api/health, /api/health/dependencies
+│       ├── auth.py      # Phase 3 — GET /api/auth/me
+│       └── diagnose.py  # Phase 4 — POST /api/diagnose, GET /api/diagnoses/*
+├── models/              # Phase 4 — PyTorch loading + inference
+│   ├── labels.py        # class taxonomy + confidence thresholds
+│   ├── preprocessing.py # Pillow validate / EXIF / resize / normalise
+│   ├── loader.py        # load checkpoint once at startup
+│   ├── inference.py     # forward pass + product rules
+│   └── weights/         # fine-tuned .pt weights (git-ignored)
+├── rag/                 # Phase 6 — LlamaIndex + FAISS pipeline
+│   └── index/           # persisted FAISS index (git-ignored)
+├── knowledge_base/      # Phase 6 — trusted source documents
+└── schemas/             # Pydantic models per feature phase
+scripts/                 # offline jobs: model training, FAISS build
+tests/
+```
+
+## Endpoints
+
+| Endpoint | Auth | Purpose |
+|---|---|---|
+| `GET /` | — | Proves the API is up |
+| `GET /api/health` | — | Liveness |
+| `GET /api/health/dependencies` | — | Readiness — Supabase, model, RAG status |
+| `GET /api/auth/me` | JWT | Verified caller + their profile row |
+| `GET /api/model` | — | Which model is loaded, its classes and metrics |
+| `POST /api/diagnose` | JWT | Upload a photo → diagnosis |
+| `GET /api/diagnoses/user/{user_id}` | JWT | Dashboard history |
+| `GET /api/diagnoses/{id}` | JWT | One diagnosis |
+| `GET /docs` | — | OpenAPI / Swagger UI |
+
+## Disease detection
+
+The model is **EfficientNet-B0** with a 10-class head over Tomato, Potato and
+Pepper. Weights are loaded **once at startup** by the lifespan handler; a missing
+or mismatched checkpoint is non-fatal — the API still boots and
+`POST /api/diagnose` returns 503.
+
+```bash
+# Train (head-only, CPU-friendly — minutes on 12 cores)
+python scripts/train_model.py --data-root <plantvillage-root> --mode head
+
+# Train (end-to-end fine-tune — wants a GPU)
+python scripts/train_model.py --data-root <plantvillage-root> --mode full --epochs 8
+```
+
+The checkpoint stores its own class list, and `loader.py` refuses to serve a
+checkpoint whose classes disagree with `app/models/labels.py` — serving a
+mismatched model would map indices to the wrong disease names, which is worse
+than not serving at all.
+
+`disease_name` strings (`"<Crop> - <Disease>"`) are matched **exactly** against
+`solutions.disease_name`. Renaming a class means renaming the matching rows.
+
+## Setup
+
+```bash
+python -m venv .venv
+.venv/Scripts/activate            # Windows
+pip install -r requirements-dev.txt
+cp .env.example .env              # fill in Supabase values
+```
+
+> **Note on the virtualenv location.** In this workspace the venv was created
+> outside the repo, at
+> `~/.workbuddy-ai/binaries/python/envs/agri-ai-backend`, because the sandbox
+> blocks writes into a project-local `.venv`. To activate it:
+>
+> ```bash
+> source ~/.workbuddy-ai/binaries/python/envs/agri-ai-backend/Scripts/activate
+> ```
+
+## Run
+
+```bash
+uvicorn app.main:app --reload --port 8000
+```
+
+## Quality gates
+
+```bash
+ruff check .             # lint + import order
+black --check .          # formatting
+pytest                   # tests
+```
+
+## Dependency staging
+
+`torch` and `torchvision` are **CPU builds** and must be installed from
+PyTorch's own index — the default PyPI wheels are the multi-GB CUDA builds:
+
+```bash
+pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+```
+
+The Phase 6 RAG packages (`llama-index`, `faiss-cpu`, `google-generativeai`)
+stay commented at the bottom of `requirements.txt` until that phase starts.
+
+> If an interrupted install leaves a half-written `torch/` directory behind, pip
+> cannot repair it in place — it must delete ~500 MB first. Remove
+> `site-packages/torch` and `site-packages/torchvision` and reinstall.
+
+## Architectural boundaries to preserve
+
+- `app/models/**` must never import from `app/rag/**` (or Gemini SDKs).
+- `app/rag/**` must never import from `app/models/**`, and must never be used to
+  answer a question about an image.
+- Natural / Traditional solutions are read from the curated `solutions` table —
+  never generated by the LLM.
+- The FAISS index is built offline by `scripts/build_faiss_index.py` and only
+  *loaded* at startup; it is never rebuilt per request.
+- Every prediction carries a confidence score. There is no code path that
+  returns a diagnosis without one.

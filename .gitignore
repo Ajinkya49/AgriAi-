@@ -1,0 +1,80 @@
+# ---- Environment ----
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# ---- Node / Next.js ----
+node_modules/
+.next/
+out/
+build/
+dist/
+.turbo/
+*.tsbuildinfo
+next-env.d.ts
+.eslintcache
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# ---- ML artifacts ----
+# Weights and indexes are excluded by default: they are large and derived.
+#
+# ⚠️ EXCEPT the two artefacts the deployed container must contain. Render/Railway
+# build the image from this repository, and there is nowhere else for the
+# container to obtain a locally-trained model. The negations below are what make
+# `docker build` able to bake them in — remove them and production starts with no
+# model and no assistant index.
+#
+# Sizes: efficientnet_b0_agri.pt ~16 MB, knowledge_base.faiss ~950 KB.
+# If the weights grow past a few tens of MB, move them to Git LFS or object
+# storage and download them in the Dockerfile instead.
+*.pt
+*.pth
+*.onnx
+*.faiss
+*.index
+artifacts/
+models/weights/
+backend/app/rag/index/
+data/raw/
+data/processed/
+
+# The deployment artefacts — see the note above before changing these.
+!backend/app/models/weights/
+!backend/app/models/weights/efficientnet_b0_agri.pt
+!backend/app/rag/index/
+!backend/app/rag/index/knowledge_base.faiss
+!backend/app/rag/index/knowledge_base.meta.json
+!backend/app/rag/index/.gitkeep
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+
+# ---- Misc ----
+docs_extracted/
+.verify/
+*.log

@@ -1,0 +1,47 @@
+# Agri AI — backend runtime dependencies
+# Versions are pinned to what is installed and verified in this workspace.
+#
+# INSTALL NOTE
+# ------------
+# torch/torchvision must come from PyTorch's CPU wheel index (the default PyPI
+# wheels are the CUDA builds, several GB larger and unnecessary here — the TRD
+# assumes no GPU at MVP):
+#
+#     pip install -r requirements.txt \
+#         --extra-index-url https://download.pytorch.org/whl/cpu
+#
+# If an interrupted install leaves a half-written `torch` directory behind, pip
+# cannot repair it in place (it has to delete ~500 MB first) — remove
+# `site-packages/torch` and `site-packages/torchvision` and reinstall.
+
+# ---- Web framework ----
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+pydantic==2.13.5
+pydantic-settings==2.7.0
+
+# ---- Supabase (Auth + Postgres + Storage) ----
+supabase==2.11.0
+
+# ---- Image handling (Phase 4: validate, EXIF-fix, resize) ----
+pillow==11.1.0
+numpy==2.5.2
+
+# ---- HTTP ----
+httpx==0.28.1
+
+# ---- Disease detection (Phase 4) ----
+# CPU builds; see the install note above.
+torch==2.14.0
+torchvision==0.29.0
+
+# ---- RAG assistant (Phase 6) ----
+# NOTE: installing these upgrades pydantic to 2.13.x — llama-index-core requires
+# it. The pin above is already the post-upgrade version. Verified: the full test
+# suite passes on it.
+llama-index-core==0.14.24
+llama-index-embeddings-gemini==0.4.2
+llama-index-vector-stores-faiss==0.7.0
+faiss-cpu==1.15.1
+google-generativeai==0.8.6

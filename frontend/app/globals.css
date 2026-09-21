@@ -1,0 +1,453 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   Agri AI — design tokens
+
+   Rural-first light theme, per the design brief: deep leaf green on off-white,
+   built for a farmer reading a budget Android screen in direct sunlight.
+
+   The palette was dark violet for one phase, taken from a reference recording.
+   It is light again because the original reason for light mode never went away:
+   dark text on off-white is more legible under a real sun than light text on
+   near-black. The motion system is unchanged — it was never palette-specific.
+
+   Contrast note: every pair below was checked against the off-white canvas.
+   `--color-primary` (#2E7D32) is dark enough to work BOTH as text on off-white
+   AND as a fill behind white text, which is why it is also the CTA fill. Amber
+   `--color-highlight` is light, so it is only ever used with DARK text.
+   =========================================================================== */
+
+@theme {
+  /* ---- Canvas & surfaces ---- */
+  --color-surface: #fafaf5; /* warm off-white page */
+  --color-surface-2: #ffffff; /* white cards */
+  --color-surface-3: #f2f1ea; /* raised / tinted panel */
+
+  /* ---- Text ---- */
+  --color-ink: #1b1b1b; /* primary text — 16:1 on surface */
+  --color-muted: #6b6b66; /* secondary text — 5.6:1 on surface */
+
+  /* ---- Hairlines ---- */
+  --color-border: #e6e4dd;
+
+  /* ---- Brand: deep leaf green ---- */
+  --color-primary: #2e7d32; /* text, icons, borders, links — 5.2:1 */
+  --color-primary-dark: #1b5e20;
+  --color-primary-soft: #e8f5e9; /* tinted fill */
+  --color-secondary: #8d6e63; /* soil brown */
+  --color-secondary-soft: #f3e5d8;
+  /* CTA fill. Same green as primary — on a light canvas one green carries both
+     roles, unlike the dark theme where a single violet could not. Always paired
+     with white text (5.3:1). */
+  --color-accent: #2e7d32;
+  /* Harvest amber. LIGHT, so it is never a text colour on white and never sits
+     behind white text — it carries DARK ink, or acts as a badge/highlight. */
+  --color-highlight: #ffb300;
+
+  /* ---- Section accents (must stay visually distinct) ---- */
+  /* Natural Solutions */
+  --color-natural-bg: #e8f5e9;
+  --color-natural-text: #1b5e20;
+  --color-natural-border: #a5d6a7;
+  /* Ancient & Traditional Solutions */
+  --color-traditional-bg: #f3e5d8;
+  --color-traditional-text: #6d4c41;
+  --color-traditional-border: #d7bfa8;
+
+  /* ---- Confidence indicator: green / amber / gray (never literal red) ----
+     A low-confidence result is a NORMAL outcome, not an error, so it stays
+     neutral gray. `--color-danger*` is reserved for genuine failures. */
+  --color-confidence-high: #2e7d32;
+  --color-confidence-medium: #f9a825;
+  --color-confidence-low: #9e9e9e;
+  /* Darker text variants — the fills above do not carry enough contrast as text
+     on an off-white background. */
+  --color-confidence-medium-text: #8a5a00;
+  --color-confidence-low-text: #5f5e5a;
+
+  /* ---- Danger / error — genuine failures only ---- */
+  --color-danger: #a32d2d;
+  --color-danger-bg: #fcebeb;
+  --color-danger-border: #f09595;
+
+  /* ---- Like (community) ---- */
+  --color-like: #c2185b;
+
+  /* ---- Shape & elevation ---- */
+  --radius-card: 16px;
+  /* Soft, low-spread shadows. On a light canvas a heavy shadow reads as grime;
+     the brief asks for soft shadows and this is what that means numerically. */
+  --shadow-card: 0 1px 2px rgba(27, 27, 27, 0.04), 0 2px 8px rgba(27, 27, 27, 0.06);
+  --shadow-lift: 0 2px 4px rgba(27, 27, 27, 0.05), 0 8px 24px rgba(27, 27, 27, 0.08);
+  --shadow-glow: 0 4px 14px rgba(46, 125, 50, 0.22);
+  --shadow-glow-lg: 0 8px 28px rgba(46, 125, 50, 0.28);
+
+  /* ---- Typography: 16px minimum body text (mobile-first, outdoor) ---- */
+  --font-sans:
+    var(--font-inter), "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+  /* Display face for large headings only (see app/layout.tsx). */
+  --font-display: var(--font-sora), var(--font-inter), "Noto Sans", system-ui, sans-serif;
+
+  /* ---- Accessibility: minimum tap target ----
+     48px, not 44. The design brief specifies 48dp, and the earlier 44px was the
+     single reason 46 controls across the app fell short of it. */
+  --spacing-tap: 48px;
+
+  /* ---- Motion ---- */
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.6s ease-out both;
+  --animate-float: float 9s ease-in-out infinite;
+  --animate-float-slow: float 14s ease-in-out infinite;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-shimmer: shimmer 1.8s linear infinite;
+  --animate-gradient: gradient-x 6s ease infinite;
+  --animate-pulse-glow: pulse-glow 5s ease-in-out infinite;
+  --animate-spin-slow: spin 22s linear infinite;
+}
+
+/* ---------------------------------------------------------------------------
+   Keyframes — declared outside @theme so they are always emitted.
+   --------------------------------------------------------------------------- */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -34px, 0) scale(1.06);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes gradient-x {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Base layer
+   --------------------------------------------------------------------------- */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* A barely-there green/amber wash so the canvas is warm rather than clinical.
+     Kept faint on purpose: on a light background a strong tint lowers the
+     contrast of every piece of text sitting on it. */
+  background-image:
+    radial-gradient(52rem 34rem at 12% -6%, rgba(46, 125, 50, 0.07), transparent 62%),
+    radial-gradient(44rem 30rem at 94% 4%, rgba(255, 179, 0, 0.07), transparent 60%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+* {
+  scrollbar-color: #cfcdc4 transparent;
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #cfcdc4;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #b5b3a8;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background-color: rgba(46, 125, 50, 0.18);
+  color: var(--color-ink);
+}
+
+/* ---------------------------------------------------------------------------
+   Components
+   --------------------------------------------------------------------------- */
+
+/* Height of the floating mobile tab bar, including its outer margin.
+   Referenced by the assistant composer and by the app layout's bottom padding so
+   the two cannot drift apart — hard-coded offsets once left the composer
+   underneath the bar, hiding what the farmer was typing. */
+:root {
+  --app-nav-height: 7.5rem; /* 120px */
+}
+
+/* Card surface. Solid white with a soft shadow rather than frosted glass:
+   `backdrop-filter` is expensive on the budget Android phones this is built for,
+   and on a light canvas there is nothing to blur anyway — a translucent white
+   over off-white just reads as a slightly dirty card. */
+.glass {
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+/* Overlays and floating chrome — the one place translucency still earns its
+   cost, because there IS content behind it. */
+.glass-strong {
+  background-color: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lift);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+/* Chrome that content scrolls *underneath*. Near-opaque: at lower opacity the
+   text behind the bar stays legible through it, which reads as a rendering bug
+   rather than a deliberate blur. */
+.glass-nav {
+  background-color: rgba(250, 250, 245, 0.97);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lift);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+
+/* Green gradient text, for the hero's accent line. */
+.text-gradient {
+  background-image: linear-gradient(100deg, #2e7d32 0%, #388e3c 45%, #1b5e20 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-animated {
+  background-image: linear-gradient(100deg, #1b5e20, #388e3c, #2e7d32, #1b5e20);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: var(--animate-gradient);
+}
+
+/* A 1px lit rim along the top edge of a card. */
+.rim {
+  position: relative;
+}
+.rim::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(46, 125, 50, 0.35), transparent);
+  pointer-events: none;
+}
+
+/* Scroll-reveal. The Reveal component toggles data-visible and sets --reveal-y. */
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 28px));
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: var(--animate-marquee);
+}
+.marquee-mask {
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+}
+
+/* Skeleton shimmer for loading states. */
+.shimmer {
+  background-image: linear-gradient(
+    90deg,
+    rgba(27, 27, 27, 0.04) 25%,
+    rgba(46, 125, 50, 0.12) 50%,
+    rgba(27, 27, 27, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+}
+
+/* Text and select fields.
+   Defined once here instead of repeated in every form, so border, placeholder,
+   focus ring and disabled behaviour cannot drift between screens. */
+.input {
+  min-height: var(--spacing-tap);
+  width: 100%;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface-2);
+  padding-inline: 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-ink);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input::placeholder {
+  color: var(--color-muted);
+}
+
+.input:hover:not(:disabled) {
+  border-color: #d5d2c8;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.18);
+}
+
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--color-surface-3);
+}
+
+textarea.input {
+  padding-block: 0.75rem;
+  resize: vertical;
+}
+
+select.input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b6b66' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  background-size: 1.1rem;
+  padding-right: 2.5rem;
+}
+
+select.input option {
+  background-color: var(--color-surface-2);
+  color: var(--color-ink);
+}
+
+/* Native checkboxes and radios take the OS accent colour by default. Pin them
+   to the brand green so browser chrome cannot leak a stray colour into the UI.
+   Sizing is left to the component — setting it here would out-specify `size-5`. */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--color-primary);
+}
+
+/* ---------------------------------------------------------------------------
+   Motion preferences
+
+   The motion system is unchanged from the previous theme — it was never
+   palette-specific. Anyone who has asked their OS for reduced motion gets a
+   static page.
+   --------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Reveals must still end up visible — a zero-duration animation would
+     otherwise leave every section stuck at opacity 0. */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

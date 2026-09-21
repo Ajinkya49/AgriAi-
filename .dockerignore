@@ -1,0 +1,58 @@
+# Docker build context exclusions.
+#
+# This file sits at the repository ROOT because that is the build context:
+#     docker build -f backend/Dockerfile -t agri-ai-backend .
+#
+# ⚠️ The ML artefacts are deliberately NOT excluded here:
+#     backend/app/models/weights/*.pt
+#     backend/app/rag/index/*
+# .gitignore excludes them from git (they are large and derived), but the image
+# must contain them or the container cannot serve. See DEPLOYMENT.md §2.
+
+# ---- Everything that is not the backend ----
+frontend/
+docs_extracted/
+supabase/
+.verify/
+*.md
+!backend/README.md
+
+# ---- Version control / editor ----
+.git/
+.gitignore
+.github/
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# ---- Python noise ----
+**/__pycache__/
+**/*.py[cod]
+**/*.egg-info/
+**/.pytest_cache/
+**/.ruff_cache/
+**/.mypy_cache/
+**/.venv/
+**/venv/
+**/htmlcov/
+**/.coverage
+
+# ---- Backend files the image does not need ----
+backend/.env
+backend/.env.*
+backend/tests/
+backend/requirements-dev.txt
+backend/pyproject.toml
+backend/.ruff_cache/
+backend/.pytest_cache/
+
+# ---- Node noise (in case the context is ever the frontend) ----
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# ---- Local logs ----
+*.log
