@@ -1,8 +1,20 @@
-import { Camera, MessageCircle, Sprout, TriangleAlert, Users } from "lucide-react";
+import {
+  Camera,
+  CloudSun,
+  MessageCircle,
+  Sprout,
+  TriangleAlert,
+  Users,
+} from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { OutbreakAlert } from "@/components/diagnosis/outbreak-alert";
+import { WeatherAlert } from "@/components/weather/weather-alert";
 import { getProfile } from "@/lib/auth/session";
+import { getRegionalOutbreaks } from "@/lib/outbreaks";
+import type { Weather } from "@/lib/api";
+import { serverApiFetch } from "@/lib/api-server";
 import { createClient } from "@/lib/supabase/server";
 import { confidenceBand, confidencePercent, formatConfidence } from "@/lib/utils";
 
@@ -27,14 +39,22 @@ const BAND_CLASS: Record<ReturnType<typeof confidenceBand>, string> = {
 export default async function DashboardPage() {
   const profile = await getProfile();
 
+  // All three run concurrently: the outbreak alert, the weather banner and the
+  // history query are independent, and on a rural connection the extra
+  // round-trips should overlap rather than queue. A failed weather fetch
+  // degrades to `null` — the banner simply does not render.
   const supabase = await createClient();
-  const { data: diagnoses } = await supabase
-    .from("diagnoses")
-    .select("id, crop_type, predicted_disease, confidence_score, created_at")
-    .order("created_at", { ascending: false })
-    .limit(5);
+  const [diagnosesResult, outbreaks, weather] = await Promise.all([
+    supabase
+      .from("diagnoses")
+      .select("id, crop_type, predicted_disease, confidence_score, created_at")
+      .order("created_at", { ascending: false })
+      .limit(5),
+    getRegionalOutbreaks(),
+    serverApiFetch<Weather>("/api/weather"),
+  ]);
 
-  const rows = (diagnoses ?? []) as DiagnosisRow[];
+  const rows = (diagnosesResult.data ?? []) as DiagnosisRow[];
   const firstName = (profile?.name ?? "").trim().split(/\s+/)[0] || "there";
 
   return (
@@ -47,6 +67,19 @@ export default async function DashboardPage() {
             : "Tell us your region and crops in Profile to get more relevant guidance."}
         </p>
       </header>
+
+      {/* Sits directly under the greeting, above the farmer's own history: it is
+          the most time-sensitive thing on the screen. Renders nothing when there
+          is nothing to report. */}
+      <OutbreakAlert outbreaks={outbreaks} region={profile?.region} />
+
+      {/* Same time-sensitive band, same render-nothing discipline. A 30-minute
+          backend cache keeps this from adding latency on repeat visits. */}
+      <WeatherAlert advisories={weather?.advisories ?? []} region={profile?.region} />
+
+      {/* Same time-sensitive band, same render-nothing discipline. A 30-minute
+          backend cache keeps this from adding latency on repeat visits. */}
+      <WeatherAlert advisories={weather?.advisories ?? []} region={profile?.region} />
 
       {/* ---- Recent diagnoses ---- */}
       <section className="flex flex-col gap-3">
@@ -136,6 +169,12 @@ export default async function DashboardPage() {
             icon={Users}
             title="Farmer community"
             body="See what other farmers are growing."
+          />
+          <QuickAction
+            href="/weather"
+            icon={CloudSun}
+            title="Weather advisory"
+            body="IMD forecast and spray-timing alerts for your region."
           />
         </div>
       </section>

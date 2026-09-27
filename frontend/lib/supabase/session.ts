@@ -33,8 +33,17 @@ function isUnder(pathname: string, prefixes: readonly string[]): boolean {
   return prefixes.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 }
 
-export async function updateSession(request: NextRequest): Promise<NextResponse> {
-  let response = NextResponse.next({ request });
+/**
+ * @param request   The incoming request.
+ * @param base      An upstream response to layer on top of. Its cookies and
+ *                  headers are carried through; Supabase's refresh and any
+ *                  redirect are applied over the top. Omit it to start fresh.
+ */
+export async function updateSession(
+  request: NextRequest,
+  base?: NextResponse,
+): Promise<NextResponse> {
+  let response = base ?? NextResponse.next({ request });
 
   // If Supabase is not configured yet, skip auth entirely rather than crashing
   // every route. The UI surfaces a "not configured" state instead.
@@ -52,7 +61,12 @@ export async function updateSession(request: NextRequest): Promise<NextResponse>
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-          response = NextResponse.next({ request });
+          // Rebuild from `base` when one was supplied, so an upstream
+          // middleware's cookies are not silently dropped when Supabase
+          // refreshes its own.
+          if (!base) {
+            response = NextResponse.next({ request });
+          }
           cookiesToSet.forEach(({ name, value, options }) =>
             response.cookies.set(name, value, options),
           );

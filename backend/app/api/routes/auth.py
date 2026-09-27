@@ -40,16 +40,15 @@ async def read_current_user(user: CurrentUser, token: BearerToken) -> MeOut:
 
     if row is None:
         # A valid session with no profile row means the profile was never created
-        # — for Supabase the on_auth_user_created trigger did not run, and for
-        # Clerk nothing creates it yet. Surface it rather than silently returning
-        # null, because without the row every policy denies.
+        # — the on_auth_user_created trigger did not run. Surface it rather than
+        # silently returning null, because without the row every policy denies.
         logger.warning("No profile row for authenticated user %s", user.id)
 
     return MeOut(
         id=user.id,
         # Read from the profile row rather than the auth payload. The row is the
-        # app's own record and looks identical for either issuer, whereas an auth
-        # payload's shape differs between Supabase and Clerk.
+        # app's own record, so this endpoint does not depend on the auth payload's
+        # shape.
         email=row.get("email") if row else None,
         phone=row.get("phone") if row else None,
         profile=ProfileOut(**row) if row else None,

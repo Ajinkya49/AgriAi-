@@ -254,6 +254,41 @@ export function getConversation(conversationId: string): Promise<{
 }
 
 /* -------------------------------------------------------------------------
+ * Weather advisory (IMD)
+ * ---------------------------------------------------------------------- */
+
+export type WeatherDay = {
+  label: string;
+  max_temp_c: number | null;
+  min_temp_c: number | null;
+  weather: string;
+  rain_expected: boolean;
+};
+
+export type WeatherAdvisory = {
+  title: string;
+  title_hi: string;
+  detail: string;
+  detail_hi: string;
+  day_labels: string[];
+};
+
+export type Weather = {
+  region: string;
+  station_name: string;
+  observed_at: string;
+  fetched_at: string;
+  days: WeatherDay[];
+  advisories: WeatherAdvisory[];
+  rain_expected: boolean;
+};
+
+/** The IMD forecast + advisories for the signed-in farmer's region. */
+export function getWeather(): Promise<Weather> {
+  return apiFetch<Weather>("/api/weather");
+}
+
+/* -------------------------------------------------------------------------
  * Farmer community (Phase 7)
  * ---------------------------------------------------------------------- */
 

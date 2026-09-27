@@ -1,12 +1,9 @@
 """Verify that a token's identity resolves through PostgREST, not GoTrue.
 
-Why this matters for the Clerk migration: `GET /auth/v1/user` is a GoTrue
-endpoint and only accepts Supabase-issued tokens. PostgREST, however, accepts any
-token Supabase can verify — including a Clerk one once third-party auth is
-enabled. So resolving identity via PostgREST works for *both* issuers, needs no
-JWT library and no Clerk domain in the backend, and uses the exact same
-verification path RLS uses. If identity resolves here, it resolves in every
-policy.
+Why this matters: `GET /auth/v1/user` is a GoTrue internal endpoint. PostgREST
+instead accepts any token Supabase can verify, so resolving identity via PostgREST
+needs no JWT library in the backend and uses the exact same verification path RLS
+uses. If identity resolves here, it resolves in every policy.
 
 This signs in a real user and calls `POST /rest/v1/rpc/current_user_id`.
 

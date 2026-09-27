@@ -177,3 +177,36 @@ def class_by_name(disease_name: str) -> DiseaseClass | None:
 def class_names() -> list[str]:
     """Ordered list of taxonomy strings, indexed by model output index."""
     return [c.disease_name for c in DISEASE_CLASSES]
+
+
+# ---------------------------------------------------------------------------
+# Crops this model can actually diagnose.
+#
+# Derived from the taxonomy above rather than hand-listed, so it can never drift
+# from what the classifier was trained on. The frontend needs this: a farmer
+# whose crop is not in here will get a confident-looking answer for whichever of
+# the 10 trained classes happens to score highest, because a classifier with a
+# fixed output layer has no way to say "not one of mine".
+#
+# `sorted()` for a stable order; `dict.fromkeys` dedupes while preserving that
+# order, since several classes share a crop.
+# ---------------------------------------------------------------------------
+DIAGNOSABLE_CROPS: tuple[str, ...] = tuple(
+    dict.fromkeys(sorted(c.crop_type for c in DISEASE_CLASSES))
+)
+
+
+def is_diagnosable_crop(crop: str) -> bool:
+    """True when `crop` is one this model was trained to recognise.
+
+    Case-insensitive, because the value may come from a free-text field
+    (`users.primary_crops`) rather than a picker.
+    """
+    needle = crop.strip().casefold()
+    return any(c.casefold() == needle for c in DIAGNOSABLE_CROPS)
+
+
+def diseases_for_crop(crop: str) -> list[DiseaseClass]:
+    """Every class this model can return for `crop`, in taxonomy order."""
+    needle = crop.strip().casefold()
+    return [c for c in DISEASE_CLASSES if c.crop_type.casefold() == needle]

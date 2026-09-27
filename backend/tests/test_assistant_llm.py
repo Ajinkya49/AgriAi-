@@ -363,6 +363,39 @@ def test_a_rate_limit_moves_on_without_burning_the_backoff(monkeypatch) -> None:
     assert sleeps == [], "a 429 must not spend the backoff budget"
 
 
+def test_a_retired_model_falls_through_instead_of_aborting(monkeypatch) -> None:
+    """A 404 (a retired `:free` model) must try the next model, not fail the farmer.
+
+    OpenRouter retires `:free` variants and answers 404 with "unavailable for
+    free". That used to raise `AssistantUnavailableError` and abort the entire
+    chain, so a single retired primary took the assistant down even with healthy
+    fallbacks configured.
+    """
+    import urllib.error
+
+    from app.rag.llm import _RetryableModelError, _send
+
+    settings = Settings(openrouter_api_key="key", gemini_api_key="")
+    monkeypatch.setattr("app.rag.llm.get_settings", lambda: settings)
+
+    calls = {"n": 0}
+    sleeps: list[float] = []
+
+    def fake_urlopen(request, timeout=None):
+        calls["n"] += 1
+        raise urllib.error.HTTPError(request.full_url, 404, "Not Found", {}, None)
+
+    monkeypatch.setattr("urllib.request.urlopen", fake_urlopen)
+    monkeypatch.setattr("app.rag.llm.time.sleep", lambda seconds: sleeps.append(seconds))
+
+    request = _build_request("openrouter", "retired/model:free", {"messages": []})
+    with pytest.raises(_RetryableModelError):
+        _send(request, provider="openrouter", model="retired/model:free")
+
+    assert calls["n"] == 1, "a 404 must not be retried against the same model"
+    assert sleeps == [], "a 404 must move on without spending the backoff budget"
+
+
 @pytest.mark.parametrize(
     ("openrouter", "gemini", "expected"),
     [

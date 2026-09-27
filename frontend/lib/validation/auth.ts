@@ -93,10 +93,16 @@ export const INDIAN_STATES = [
 ] as const;
 
 /**
- * Crops offered during onboarding. The v1 detection model ships with a small
- * curated set (PRD: tomato, wheat and 2–3 more common regional crops); this list
- * is what a farmer can declare as their primary crop, which is broader than what
- * the model can currently diagnose.
+ * Crops a farmer can declare as theirs.
+ *
+ * `users.primary_crops` is intentionally broader than what the v1 model can
+ * diagnose — a farmer grows what they grow, and the profile should reflect that
+ * regardless of the model's current scope. The list previously implied coverage
+ * the model does not have (it offered 12 crops while only 3 are diagnosable),
+ * which is handled by `DIAGNOSABLE_CROPS` below rather than by shrinking this.
+ *
+ * Kept in sync with the backend's `DIAGNOSABLE_CROPS` by
+ * `frontend/e2e/crop-coverage.mjs`.
  */
 export const CROP_OPTIONS = [
   "Tomato",
@@ -107,8 +113,52 @@ export const CROP_OPTIONS = [
   "Onion",
   "Brinjal",
   "Chilli",
+  "Pepper",
   "Cotton",
   "Sugarcane",
   "Groundnut",
   "Soybean",
 ] as const;
+
+export type CropOption = (typeof CROP_OPTIONS)[number];
+
+/**
+ * Crops the v1 detection model was actually trained on.
+ *
+ * MIRRORS `backend/app/models/labels.py` → `DIAGNOSABLE_CROPS`, which derives it
+ * from the class taxonomy. Duplicated here because the crop picker is a client
+ * component and the model's taxonomy is not importable from the browser; the
+ * authoritative value is served at `GET /api/health/dependencies` →
+ * `model.diagnosable_crops`.
+ *
+ * ⚠️ Why this list matters: the classifier has a fixed output layer over 10
+ * classes, so it has no way to answer "none of mine". Photograph a cotton leaf
+ * and it will still return its best-fitting trained class with a
+ * confident-looking score. Telling the farmer up front is the honest fix.
+ *
+ * `frontend/e2e/crop-coverage.mjs` asserts this matches the backend and fails the
+ * suite if the model learns a new crop without this being updated.
+ */
+export const DIAGNOSABLE_CROPS = ["Tomato", "Potato", "Pepper"] as const;
+
+export type DiagnosableCrop = (typeof DIAGNOSABLE_CROPS)[number];
+
+/** True when the model can actually diagnose `crop` (case-insensitive). */
+export function isDiagnosableCrop(crop: string): boolean {
+  const needle = crop.trim().toLowerCase();
+  return DIAGNOSABLE_CROPS.some((c) => c.toLowerCase() === needle);
+}
+
+/**
+ * Picker order: diagnosable crops first, so the ones that produce a real result
+ * are the easiest to reach. Within each group the declared order is preserved.
+ *
+ * Not alphabetical on purpose — for a farmer scanning a row of chips, "what
+ * works" is a more useful sort than "what starts with A".
+ */
+export const CROP_OPTIONS_ORDERED: readonly string[] = [
+  ...DIAGNOSABLE_CROPS,
+  ...CROP_OPTIONS.filter(
+    (c) => !DIAGNOSABLE_CROPS.some((d) => d.toLowerCase() === c.toLowerCase()),
+  ),
+];

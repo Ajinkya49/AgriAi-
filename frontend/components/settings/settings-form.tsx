@@ -1,10 +1,14 @@
 "use client";
 
-import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
+import { AlertCircle, Check, CheckCircle2, Loader2 } from "lucide-react";
 import { useActionState } from "react";
 
 import { saveSettingsAction, type AuthState } from "@/lib/auth/actions";
-import { CROP_OPTIONS, INDIAN_STATES } from "@/lib/validation/auth";
+import {
+  CROP_OPTIONS_ORDERED,
+  INDIAN_STATES,
+  isDiagnosableCrop,
+} from "@/lib/validation/auth";
 
 /**
  * Account settings form.
@@ -81,29 +85,38 @@ export function SettingsForm({
       <fieldset className="flex flex-col gap-2">
         <legend className="font-semibold">Crops you grow</legend>
         <p className="text-muted text-sm">
-          Pick up to 12. This helps us show the right guidance first.
+          Pick up to 12. Crops with a ✓ can be checked by photo today.
         </p>
         <div className="flex flex-wrap gap-2">
-          {CROP_OPTIONS.map((crop) => (
-            <label
-              key={crop}
-              className="glass has-checked:border-primary has-checked:bg-primary-soft min-h-tap rounded-card flex cursor-pointer items-center gap-2 px-3"
-            >
-              <input
-                type="checkbox"
-                name="primary_crops"
-                value={crop}
-                defaultChecked={primaryCrops.includes(crop)}
-                // Colour comes from the global `input[type=checkbox]` rule, which
-                // pins the browser accent to the brand violet. It was set to
-                // `accent-confidence-high` — the confidence-band green, which is
-                // semantically wrong here and clashed with the violet highlight
-                // on its own label.
-                className="size-5"
-              />
-              <span className="text-base">{crop}</span>
-            </label>
-          ))}
+          {CROP_OPTIONS_ORDERED.map((crop) => {
+            const supported = isDiagnosableCrop(crop);
+            return (
+              <label
+                key={crop}
+                className="glass has-checked:border-primary has-checked:bg-primary-soft min-h-tap rounded-card flex cursor-pointer items-center gap-2 px-3"
+              >
+                <input
+                  type="checkbox"
+                  name="primary_crops"
+                  value={crop}
+                  defaultChecked={primaryCrops.includes(crop)}
+                  // Colour comes from the global `input[type=checkbox]` rule, which
+                  // pins the browser accent to the brand green. It was set to
+                  // `accent-confidence-high` — the confidence-band green, which is
+                  // semantically wrong here and clashed with the highlight on its
+                  // own label.
+                  className="size-5"
+                />
+                <span className="text-base">{crop}</span>
+                {supported && (
+                  <>
+                    <Check className="text-primary size-4 shrink-0" aria-hidden="true" />
+                    <span className="sr-only"> — photo check available</span>
+                  </>
+                )}
+              </label>
+            );
+          })}
         </div>
       </fieldset>
 

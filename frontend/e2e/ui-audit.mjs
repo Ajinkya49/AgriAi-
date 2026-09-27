@@ -239,6 +239,7 @@ const PROTECTED_ROUTES = [
   "/community",
   "/community/new",
   "/post/new",
+  "/weather",
   "/profile",
   "/settings",
   "/onboarding",

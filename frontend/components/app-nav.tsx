@@ -2,6 +2,7 @@
 
 import {
   Camera,
+  CloudSun,
   LayoutDashboard,
   Leaf,
   MessageCircle,
@@ -18,7 +19,7 @@ import { cn } from "@/lib/utils";
  * Primary navigation.
  *
  * Mobile: fixed bottom tab bar. Desktop (>=1024px): left sidebar with the same
- * five sections. Per the UI/UX brief every icon is paired with a text label —
+ * six sections. Per the UI/UX brief every icon is paired with a text label —
  * never icon-only navigation — because the audience has varying digital
  * literacy.
  *
@@ -26,7 +27,8 @@ import { cn } from "@/lib/utils";
  * prominent), Assistant, Community, Profile". Five tabs have no second-position
  * centre, so Upload sits in the actual centre (position 3) to honour the
  * "center, prominent" instruction. See supabase/../DECISIONS or the Phase 3
- * summary.
+ * summary. Weather slots in at position 5, before Profile, keeping the
+ * original five in their documented relative order.
  *
  * Visual treatment: the bottom bar is a floating, blurred glass panel that does
  * not quite touch the screen edges, and the active tab gets a violet glow. This
@@ -44,6 +46,7 @@ const NAV_ITEMS: NavItem[] = [
   { href: "/assistant", label: "Assistant", icon: MessageCircle },
   { href: "/upload", label: "Upload", icon: Camera, prominent: true },
   { href: "/community", label: "Community", icon: Users },
+  { href: "/weather", label: "Weather", icon: CloudSun },
   { href: "/profile", label: "Profile", icon: UserRound },
 ];
 
@@ -95,9 +98,12 @@ export function AppNav() {
           indicator on notched phones. */}
       <nav
         aria-label="Main"
-        className="fixed inset-x-0 bottom-0 z-40 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 px-1.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:hidden"
       >
-        <ul className="glass-nav mx-auto flex max-w-lg items-stretch rounded-3xl p-1.5 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.9)]">
+        {/* Six tabs leave ~60px each at 390px, so the bar's own padding is kept
+            minimal — the audit measures every tab link at ≥48px wide, and at the
+            old px-3/p-1.5 the last tab fell to 44px. */}
+        <ul className="glass-nav mx-auto flex max-w-lg items-stretch rounded-3xl p-1 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.9)]">
           {NAV_ITEMS.map(({ href, label, icon: Icon, prominent }) => {
             const active = isActive(pathname, href);
             return (
@@ -105,7 +111,7 @@ export function AppNav() {
                 <Link
                   href={href}
                   aria-current={active ? "page" : undefined}
-                  className="min-h-tap flex flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 transition-colors"
+                  className="min-h-tap min-w-tap flex flex-col items-center justify-center gap-1 rounded-2xl px-0.5 py-2 transition-colors"
                 >
                   {prominent ? (
                     <span

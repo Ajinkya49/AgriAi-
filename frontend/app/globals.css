@@ -70,6 +70,15 @@
   --color-danger-bg: #fcebeb;
   --color-danger-border: #f09595;
 
+  /* ---- Warning — advisory, not a failure ----
+     Used by the outbreak alert. Deliberately NOT `--color-danger*`: a disease
+     spreading nearby is information the farmer should act on, not something
+     that went wrong. Amber tint with dark ink, so it reads as a caution rather
+     than an error while staying legible. */
+  --color-warning: #8a5a00;
+  --color-warning-bg: #fff8e6;
+  --color-warning-border: #f0c96b;
+
   /* ---- Like (community) ---- */
   --color-like: #c2185b;
 

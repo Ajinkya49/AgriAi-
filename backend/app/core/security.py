@@ -13,9 +13,9 @@ That is deliberately the *same* path RLS uses. If identity resolves here, the
 subject is what every policy sees — which is a stronger guarantee than checking a
 different system and hoping the two agree.
 
-It also keeps the backend **issuer-agnostic**. `GET /auth/v1/user` (used before)
-is GoTrue's own endpoint and only accepts Supabase-issued tokens; PostgREST
-accepts any token Supabase can verify, including a Clerk one via third-party auth.
+It also keeps the backend **decoupled from GoTrue internals**. `GET /auth/v1/user`
+(used before) is GoTrue's own endpoint; PostgREST instead accepts any token
+Supabase can verify, which is the same check RLS relies on.
 
 Two clients matter here:
   * the **user-scoped** client forwards the caller's token, so Row Level
@@ -46,9 +46,8 @@ _bearer_scheme = HTTPBearer(auto_error=False, description="Supabase access token
 class AuthUser:
     """The verified caller.
 
-    `id` is the identity subject — a Supabase uuid or a Clerk user id, as a
-    string. `email` and `phone` are optional because they live in the app's own
-    `public.users` row, not in the token.
+    `id` is the identity subject, as a string. `email` and `phone` are optional
+    because they live in the app's own `public.users` row, not in the token.
     """
 
     id: str
@@ -70,18 +69,16 @@ async def _resolve_identity(token: str) -> str:
     Two things in one round-trip, which is why it calls `ensure_profile()` rather
     than `current_user_id()`:
 
-    1. **Identity.** This used to call `GET /auth/v1/user`. That endpoint is
-       GoTrue's own and only accepts **Supabase-issued** tokens — so it rejects a
-       Clerk session outright, which would break the moment identity moves.
-       PostgREST accepts any token Supabase can verify, including a Clerk one once
-       third-party auth is enabled. So this works for both issuers, and needs no
-       JWT library, no JWKS fetching and no Clerk domain in the backend.
+    1. **Identity.** This used to call `GET /auth/v1/user`, which is GoTrue's own
+       endpoint. PostgREST instead accepts any token Supabase can verify, so the
+       backend needs no JWT library, no JWKS fetching, and no coupling to the
+       auth server's internal endpoints.
 
-    2. **Provisioning.** `public.users` rows are created by the
-       `on_auth_user_created` trigger, which fires on inserts into `auth.users`.
-       With Clerk there is no such row, so nothing creates the profile and every
-       policy would deny. `ensure_profile()` creates it on first request. For a
-       Supabase user the row already exists and this is a cheap no-op.
+    2. **Provisioning.** `ensure_profile()` creates the caller's `public.users`
+       row if it is missing, so a valid session can never be left without a
+       profile (without one, every policy denies). For a normal signup the
+       `on_auth_user_created` trigger has already created it and this is a cheap
+       no-op.
 
     It is also the **same verification path RLS uses**. Resolving identity through
     the same system that will evaluate every policy is a stronger guarantee than

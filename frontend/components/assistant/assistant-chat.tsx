@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertCircle, BookOpen, Leaf, Loader2, Send, User } from "lucide-react";
+import { AlertCircle, BookOpen, Leaf, Loader2, Mic, Send, User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import {
@@ -10,6 +10,7 @@ import {
   type AssistantSource,
   type AssistantStatus,
 } from "@/lib/api";
+import { useSpeechRecognition } from "@/lib/speech";
 import { cn } from "@/lib/utils";
 
 type Turn = {
@@ -44,6 +45,9 @@ const COPY = {
     placeholder: "Ask about your crop…",
     yourQuestion: "Your question",
     send: "Send question",
+    listening: "Listening…",
+    listenLabel: "Speak your question",
+    stopListening: "Stop listening",
     thinking: "Looking through the knowledge base…",
     unavailable:
       "The assistant is not available right now. Please try again later, or ask your local KVK.",
@@ -56,6 +60,9 @@ const COPY = {
     placeholder: "अपनी फसल के बारे में पूछें…",
     yourQuestion: "आपका सवाल",
     send: "सवाल भेजें",
+    listening: "सुन रहा हूँ…",
+    listenLabel: "बोलकर पूछें",
+    stopListening: "सुनना बंद करें",
     thinking: "जानकारी खोजी जा रही है…",
     unavailable:
       "सहायक अभी उपलब्ध नहीं है। कृपया बाद में कोशिश करें, या अपने स्थानीय KVK से पूछें।",
@@ -81,6 +88,24 @@ export function AssistantChat({
   const [conversationId, setConversationId] = useState<string | undefined>();
   const [language, setLanguage] = useState<AssistantLanguage>("en");
   const endRef = useRef<HTMLDivElement>(null);
+
+  // Voice input (Web Speech API). The recognition locale follows the app's own
+  // language toggle; the assistant answers in the language of the question
+  // either way, so voice feeds straight into a path that already works.
+  const speech = useSpeechRecognition({
+    lang: language === "hi" ? "hi-IN" : "en-IN",
+    copyLang: language,
+    onFinal: (transcript) => {
+      // Speak-and-send: a farmer taps the mic once and gets an answer. If a
+      // request is already in flight, park the words in the composer instead
+      // so nothing is lost.
+      if (busy) {
+        setInput((prev) => (prev ? `${prev} ${transcript}` : transcript));
+      } else {
+        void send(transcript);
+      }
+    },
+  });
 
   useEffect(() => {
     getAssistantStatus()
@@ -298,6 +323,36 @@ export function AssistantChat({
         </section>
       )}
 
+      {/* ---- Voice ----
+          Live caption while the mic is open, so a farmer sees the app has
+          heard them before anything is sent. The mic button itself renders
+          only on browsers that actually support speech recognition. */}
+      {speech.listening && (
+        <p
+          role="status"
+          aria-live="polite"
+          className="text-danger flex items-center gap-2 px-2 text-sm font-semibold"
+        >
+          <Mic className="size-4 shrink-0 animate-pulse" aria-hidden="true" />
+          <span className="shrink-0">{copy.listening}</span>
+          {speech.interim && (
+            <span className="text-muted min-w-0 flex-1 truncate font-normal">
+              “{speech.interim}”
+            </span>
+          )}
+        </p>
+      )}
+
+      {speech.errorText && (
+        <p
+          role="alert"
+          className="rounded-card border-danger-border bg-danger-bg text-danger flex items-start gap-2 border p-3 text-base"
+        >
+          <AlertCircle className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
+          <span>{speech.errorText}</span>
+        </p>
+      )}
+
       {/* ---- Composer ---- */}
       <form
         className="bg-surface/90 sticky bottom-[var(--app-nav-height)] -mx-2 flex items-end gap-2 rounded-2xl px-2 py-2 backdrop-blur-xl sm:bottom-4"
@@ -324,6 +379,24 @@ export function AssistantChat({
           disabled={busy || unavailable}
           className="input max-h-32 flex-1"
         />
+        {speech.supported && (
+          <button
+            type="button"
+            onClick={() => (speech.listening ? speech.stop() : speech.start())}
+            disabled={busy || unavailable}
+            aria-pressed={speech.listening}
+            aria-label={speech.listening ? copy.stopListening : copy.listenLabel}
+            data-testid="mic-button"
+            className={cn(
+              "min-h-tap min-w-tap rounded-card flex items-center justify-center px-4 transition-colors",
+              speech.listening
+                ? "bg-danger animate-pulse text-white"
+                : "glass text-ink hover:text-primary",
+            )}
+          >
+            <Mic className="size-5" aria-hidden="true" />
+          </button>
+        )}
         <button
           type="submit"
           disabled={busy || unavailable || !input.trim()}

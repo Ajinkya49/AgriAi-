@@ -53,22 +53,53 @@ Supabase (Postgres + Auth + Storage + RLS) · Vercel + Render/Railway.
 > Recorded in `DECISIONS.md`. **Embeddings are still Gemini-only** (the FAISS index
 > was built with `gemini-embedding-001`; `load_index()` refuses a mismatch).
 
-## Auth is Supabase, not Clerk
+## Auth is Supabase — Clerk was removed (2026-09-23)
 
-**⚠️ `auth.uid()` casts the JWT `sub` to `uuid`** (verified against the live DB).
-Clerk subjects are strings (`user_2abc...`), so adopting Clerk makes all **38**
-`auth.uid()` call sites **raise** `invalid input syntax for type uuid` — they do
-not merely mismatch. Clerk's own Supabase docs use `text` + `auth.jwt()->>'sub'`
-and never `auth.uid()`.
+Clerk was evaluated, never fully wired in (Supabase was not told to trust it), and
+is now **removed**. Deleted: `@clerk/nextjs`, `ClerkProvider` in `layout.tsx`, the
+`clerkMiddleware()` composition in `proxy.ts`, all `NEXT_PUBLIC_CLERK_*` /
+`CLERK_SECRET_KEY` env vars, and the Clerk docs + scripts
+(`clerk-setup-steps.md`, `clerk-migration-assessment.md`, `check_clerk_trust.py`,
+`generate_clerk_migration.py`). Auth is Supabase Auth end to end.
 
-Full scope + the half-applied `clerk init` state:
-`docs/clerk-migration-assessment.md`. **Inert scaffolding is currently in the
-frontend** (`@clerk/nextjs`, `ClerkProvider`, `/sign-in` + `/sign-up` routes
-duplicating `/login` + `/signup`); `proxy.ts` was **skipped** by the CLI, so Clerk
-enforces nothing.
+**⚠️ Kept on purpose: the two identity migrations.**
+(`20260920000001_clerk_compatible_identity.sql`,
+`20260920000002_ensure_profile.sql`). They are already applied live and are
+harmless with Supabase — they just make identity issuer-agnostic: `users.id` is
+**text**, 6 `user_id` cols are text, `current_user_id()` returns text, **0**
+policies call `auth.uid()` (all use `current_user_id()`), and `ensure_profile()`
+exists. Reverting them would be a risky live-DB change with no benefit while the
+app runs on Supabase.
 
-**⚠️ `clerk init` must run where `package.json` is** (i.e. `frontend/`), or it
-errors with "Non-interactive mode requires --framework for new projects".
+`security.py` resolves identity through **PostgREST** (`ensure_profile`) rather
+than GoTrue's `/auth/v1/user` — no JWT library, and it uses the same path RLS
+uses.
+
+## ⚠️ Never build with `next build --webpack` (found + fixed 2026-09-21)
+
+`--webpack` **silently disables `proxy.ts`** — no auth guard, no cookie refresh.
+
+For a **Node-runtime** proxy on Next 16, `middleware-manifest.json` staying empty
+is *expected*; it is not what the runtime reads. The real path is
+`NextNodeServer.loadNodeMiddleware()`: read `functions-config-manifest.json` → if
+it declares `/_middleware`, `require('.next/server/middleware.js')` → and if that
+throws `MODULE_NOT_FOUND`, **swallow it** and skip middleware silently.
+
+| Build | Declares `/_middleware` | Emits `middleware.js` | Proxy runs |
+|---|---|---|---|
+| `next build` (Turbopack, default) | yes | **yes** | ✅ |
+| `next build --webpack` | yes | **no** | ❌ |
+
+Both bundlers write the declaration; only Turbopack emits the file it points at.
+**Vercel runs `npm run build` (Turbopack), so deploys were never affected.**
+Verified: unauthenticated `next start` returns 307 → `/login?redirect=…` for all 7
+protected prefixes.
+
+**`frontend/scripts/verify-proxy-registered.mjs` runs as `postbuild`** and fails
+loudly if the proxy would be skipped. Tested to pass on Turbopack and fail on
+`--webpack`. If you ever see `--webpack` in a build command or CI config, remove
+it. (Turbopack also builds fine here — the earlier "Turbopack is unusable" note
+was about **dev HMR**, not builds.)
 
 Backup: `C:/Users/ajink/workbuddy-ai/_backup-agri-ai-20260920-145231/agri-ai.tar`.
 
@@ -241,8 +272,16 @@ Chat runs on **OpenRouter first, Gemini as fallback** (`app/rag/llm.py`).
 
 - **⚠️ Verify model IDs against `/api/v1/models` — plausible names written from
   memory do not exist**, and `.env` silently overrides `config.py` defaults.
-  Working free models: `deepseek/deepseek-v4-flash-0731:free` (primary),
-  `nvidia/nemotron-3-ultra-550b-a55b:free`, `google/gemma-4-31b-it:free`.
+  `deepseek/deepseek-v4-flash-0731:free` was **retired to paid** (returns 404 as
+  of 2026-09-23). Current set: primary `nvidia/nemotron-3-super-120b-a12b:free`,
+  fallbacks `z-ai/glm-5.2:free`, `nvidia/nemotron-3-ultra-550b-a55b:free`,
+  `google/gemma-4-31b-it:free`, `qwen/qwen3.8-27b:free`. Free availability
+  fluctuates per minute, so the chain matters more than any single slug.
+- **⚠️ A 404 used to abort the whole chain.** `_send()` raised
+  `AssistantUnavailableError` for any non-retryable status, so **one retired
+  primary took the assistant down despite healthy fallbacks**. 404 is now treated
+  like 429 — move to the next model. Test:
+  `test_a_retired_model_falls_through_instead_of_aborting`.
 - **⚠️ Free-tier limits are PER MODEL** and 429 often — that is why the chain exists.
   A 429 is now non-retryable (moves straight to the next model); 5xx is still retried.
 - **⚠️ An HTTP-200 response with EMPTY content must fall through to the next model**,

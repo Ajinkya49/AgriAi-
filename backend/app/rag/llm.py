@@ -243,8 +243,15 @@ def _send(request: urllib.request.Request, *, provider: str, model: str, timeout
             #
             # This mattered: with three rate-limited models ahead of a working
             # one, the old path burned 3s + 6s per model before moving on.
-            if exc.code == 429:
-                raise _RetryableModelError(f"rate limited ({exc.code})") from exc
+            #
+            # 404 means the model itself is gone — most often a `:free` variant
+            # that OpenRouter has retired or moved to paid. That is a property of
+            # this one model, not of the request, so it must fall through to the
+            # next model in the chain. It used to raise `AssistantUnavailableError`
+            # and abort the entire chain, so a single retired primary took the
+            # assistant down even with healthy fallbacks configured.
+            if exc.code in (404, 429):
+                raise _RetryableModelError(f"model unavailable ({exc.code})") from exc
 
             if exc.code in RETRYABLE_STATUS and attempt < MAX_RETRIES:
                 time.sleep(BASE_BACKOFF_SECONDS * attempt)

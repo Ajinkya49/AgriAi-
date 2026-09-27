@@ -69,11 +69,15 @@ class Settings(BaseSettings):
     # `gemini-embedding-001` and `load_index()` refuses a mismatched model, so
     # changing the embedding provider means rebuilding the index first.
     openrouter_api_key: str = ""
-    # Verified working on the free tier, including Hindi in/out and the refusal
-    # path. Free models are rate-limited per-model, hence the fallbacks.
-    openrouter_model: str = "deepseek/deepseek-v4-flash-0731:free"
+    # Verified working on the free tier with this project's key. Free models are
+    # rate-limited per-model AND are retired without notice —
+    # `deepseek/deepseek-v4-flash-0731:free` moved to paid and now returns 404 —
+    # hence the fallback chain, and hence checking `/api/v1/models` before
+    # trusting a slug.
+    openrouter_model: str = "nvidia/nemotron-3-super-120b-a12b:free"
     openrouter_fallback_models: str = (
-        "nvidia/nemotron-3-ultra-550b-a55b:free,google/gemma-4-31b-it:free"
+        "z-ai/glm-5.2:free,nvidia/nemotron-3-ultra-550b-a55b:free,"
+        "google/gemma-4-31b-it:free,qwen/qwen3.8-27b:free"
     )
 
     gemini_api_key: str = ""
@@ -89,6 +93,19 @@ class Settings(BaseSettings):
     rag_top_k: int = 5
     rag_chunk_size: int = 900
     rag_chunk_overlap: int = 150
+
+    # ---- Weather advisory (IMD) ----
+    # Key from https://api.imd.gov.in/ (register -> subscribe to a product ->
+    # paste the key). Sent as the `X-API-KEY` header per the IMD API Portal user
+    # guide. Without it the weather endpoints report "not configured" rather
+    # than erroring — weather is supplementary and the app must never depend on
+    # it.
+    imd_api_key: str = ""
+    imd_api_base_url: str = "https://api.imd.gov.in/api/v1"
+    # IMD issues forecasts twice a day; the portal's keys are rate-limited, so
+    # responses are cached in-process between issues.
+    weather_cache_ttl_minutes: int = 30
+    weather_timeout_seconds: float = 10.0
 
     @property
     def cors_origin_list(self) -> list[str]:
@@ -109,6 +126,11 @@ class Settings(BaseSettings):
         required. The index is needed regardless.
         """
         return bool((self.openrouter_api_key or self.gemini_api_key) and self.faiss_index_path)
+
+    @property
+    def is_weather_configured(self) -> bool:
+        """True when the IMD gateway key is present."""
+        return bool(self.imd_api_key)
 
     @property
     def openrouter_model_chain(self) -> list[str]:

@@ -43,9 +43,9 @@ services:
       - key: OPENROUTER_API_KEY
         sync: false
       - key: OPENROUTER_MODEL
-        value: deepseek/deepseek-v4-flash-0731:free
+        value: nvidia/nemotron-3-super-120b-a12b:free
       - key: OPENROUTER_FALLBACK_MODELS
-        value: nvidia/nemotron-3-ultra-550b-a55b:free,google/gemma-4-31b-it:free
+        value: z-ai/glm-5.2:free,nvidia/nemotron-3-ultra-550b-a55b:free,google/gemma-4-31b-it:free,qwen/qwen3.8-27b:free
 
       # ---- Gemini ----
       # Still required for EMBEDDINGS: the FAISS index was built with
